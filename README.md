@@ -34,6 +34,7 @@
 使用C# 开发
 ## 参考内容
 [官方文档](https://docs.microsoft.com/zh-cn/windows/uwp/get-started/your-first-app)
+[入门中文翻译视频](https://zhuanlan.zhihu.com/p/20364660)
 根据文档可以下载相关依赖 熟悉设计风格 基本控件使用
 
 书籍： C# 图解教程
