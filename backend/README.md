@@ -24,6 +24,19 @@ url| header | methods
 ---|--------|-------- 
 /signin/ | Content-Type:application/json |  GET 
 
+## URL Params  
+```
+no params 
+```
+## POST DATA:  
+```
+{
+    msg:"7注册成功" // 返回值 
+}
+
+```
+
+
 # 发送"邮件"
 
 url| header | methods  
