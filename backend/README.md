@@ -22,7 +22,7 @@ no params
 # 注册
 url| header | methods  
 ---|--------|-------- 
-/signin/ | Content-Type:application/json |  GET 
+/signin/ | Content-Type:application/json |  POST
 
 ## URL Params  
 ```
