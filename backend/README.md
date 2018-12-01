@@ -3,7 +3,7 @@
 # 登录
 url| header | methods  
 ---|--------|-------- 
-/login/ | Content-Type:application/json |  GET 
+/login/ | Content-Type:application/json |  POST
 
 ## URL Params  
 ```
