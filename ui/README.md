@@ -7,6 +7,7 @@
 [ArrayList](https://docs.microsoft.com/zh-cn/dotnet/api/system.collections.arraylist?view=netframework-4.7.2)
 Task<> 泛型中貌似只会接受一个IList 的实现<br>
 这个地方不能够田间ArrayList，因为ArrayList是不支持泛型的
+
 - JSON 序列化和反序列化
 [数据契约](https://blog.csdn.net/Percy__Lee/article/details/48286035)
 [C# 进行序列化和反序列化实例](http://www.cnblogs.com/caofangsheng/p/5687994.html)
