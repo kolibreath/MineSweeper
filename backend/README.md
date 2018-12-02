@@ -3,7 +3,7 @@
 # 登录
 url| header | methods  
 ---|--------|-------- 
-/login/ | Content-Type:application/json |  GET 
+/login/ | Content-Type:application/json |  POST
 
 ## URL Params  
 ```
@@ -22,7 +22,20 @@ no params
 # 注册
 url| header | methods  
 ---|--------|-------- 
-/signin/ | Content-Type:application/json |  GET 
+/signin/ | Content-Type:application/json |  POST
+
+## URL Params  
+```
+no params 
+```
+## POST DATA:  
+```
+{
+    msg:"7注册成功" // 返回值 
+}
+
+```
+
 
 # 发送"邮件"
 
