@@ -7,11 +7,11 @@
   IgnorableNamespaces="uap mp">
 
   <Identity
-    Name="3fe27e7b-ecb7-4e13-8769-3fa3a83ed326"
+    Name="c08daf29-fbdb-42dc-a63f-f06dcd48ac62"
     Publisher="CN=kolibreath"
     Version="1.0.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="3fe27e7b-ecb7-4e13-8769-3fa3a83ed326" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="c08daf29-fbdb-42dc-a63f-f06dcd48ac62" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>MineSweeper</DisplayName>

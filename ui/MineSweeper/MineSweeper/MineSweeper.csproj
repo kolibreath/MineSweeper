@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProjectGuid>{81EA0C7E-0CC7-404C-9FD3-B52F104B3B61}</ProjectGuid>
+    <ProjectGuid>{9EB0BA17-E78C-45B0-8DFE-5E931096CCB5}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MineSweeper</RootNamespace>
