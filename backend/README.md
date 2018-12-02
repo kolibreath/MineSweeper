@@ -77,12 +77,17 @@ no params
 [
     {
         Email:"习近平",
-        NickName:"维尼",
+        NickName:"习主席",
         Score:100
     },
     {
         Email:"江泽民",
-        NickName:"蛤",
+        NickName:"前国家主席",
+        Score:99
+    },
+     {
+        Email:"邓小平",
+        NickName:"改革开放设计师",
         Score:99
     }
     
@@ -106,7 +111,7 @@ url| header | methods
 
 ```
 {
-    Msg:"注册成功/并没有注册陈工"  
+    Msg:"挑战成功/并没有注册成功"  
     Code:200/400 //int
 }
 
