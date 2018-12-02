@@ -36,5 +36,12 @@ namespace MineSweeper.Net
             string retString = myStreamReader.ReadToEnd();
             return retString;
         }
+
+
+        public static void test()
+        {
+           
+
+        }
     }
 }

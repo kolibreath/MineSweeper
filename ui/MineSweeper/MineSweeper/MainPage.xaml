@@ -10,7 +10,7 @@
 
     <Grid>
 
-        <Button x:Name="fuck you" Content="Fuck you" HorizontalAlignment="Center"
+        <Button x:Name="fuckyou" Content="Fuck you" HorizontalAlignment="Center"
                 Click="fuck_you"/>
     </Grid>
 </Page>

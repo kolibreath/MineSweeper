@@ -26,5 +26,16 @@ namespace MineSweeper.Views
         {
             this.InitializeComponent();
         }
+
+        private void PassportSignInButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+
+        private void RegisterButtonTextBlock_OnPointerPressed(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
