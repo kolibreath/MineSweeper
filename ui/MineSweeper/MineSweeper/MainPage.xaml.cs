@@ -1,5 +1,7 @@
-﻿using System;
+﻿using MineSweeper.Net;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -25,6 +27,13 @@ namespace MineSweeper
         public MainPage()
         {
             this.InitializeComponent();
+            Loaded += fuck_you; 
         }
+
+        private async void fuck_you(object sender ,RoutedEventArgs e)
+        {
+           Debug. WriteLine(await NetHelper.HttpGet("http://www.baidu.com"));
+        }
+
     }
 }
