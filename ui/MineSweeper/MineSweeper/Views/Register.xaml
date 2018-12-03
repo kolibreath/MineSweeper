@@ -32,6 +32,12 @@
                TextAlignment="Center" VerticalAlignment="Center" FontSize="16"/>
             <TextBox x:Name="UserpasswordTextBox" Margin="4" Width="250" 
                      TextChanged="UserpasswordTextBox_TextChanged"/>
+
+            <TextBlock Text="Enter your email address below" Margin="0,0,0,10"
+               TextWrapping="Wrap" Width="300"
+               TextAlignment="Center" VerticalAlignment="Center" FontSize="16"/>
+            <TextBox x:Name="UserEmailTextBox" Margin="4" Width="250" 
+                     />
             <Button x:Name="PassportRegisterButton" 
                     Content="Register" 
                     Background="DodgerBlue" Foreground="White"

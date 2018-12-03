@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MineSweeper.Model;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,6 +23,10 @@ namespace MineSweeper.Views
     /// </summary>
     public sealed partial class Register : Page
     {
+        string UserName;
+        string Userpassword;
+        string Email;
+
         public Register()
         {
             this.InitializeComponent();
@@ -29,7 +34,12 @@ namespace MineSweeper.Views
 
         private void PassportRegisterButton_Click(object sender, RoutedEventArgs e)
         {
+            UserName = UsernameTextBox.Text;
+            Userpassword = UserpasswordTextBox.Text;
+            Email = UserEmailTextBox.Text;
 
+            UserRegister register = new UserRegister(UserName, Userpassword, Email);
+            //todo 注册到服务器
         }
 
         private void RegisterButtonTextBlock_PointerPressed(object sender, PointerRoutedEventArgs e)

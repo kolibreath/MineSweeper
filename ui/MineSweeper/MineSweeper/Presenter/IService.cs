@@ -18,7 +18,7 @@ namespace MineSweeper.Presenter
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        public async Task<bool> Login(User user)
+        public async Task<bool> Login(UserLogin user)
         {
             var requestApi =  api + "login/";
             //实现一个post 请求并且获取返回值
@@ -34,7 +34,7 @@ namespace MineSweeper.Presenter
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-       public async Task<bool> Signin (User user)
+       public async Task<bool> Signin (UserLogin user)
         {
             var requestApi = api + "signin/";  
             Message message = await requestApi.PostJsonAsync(user).ReceiveJson<Message>();
@@ -83,7 +83,7 @@ namespace MineSweeper.Presenter
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        async Task<bool> GetUpdate(User user)
+        async Task<bool> GetUpdate(UserLogin user)
         {
             var requestApi =  api + "status/";
             Message message = await requestApi.PostJsonAsync(user).ReceiveJson<Message>();

@@ -24,7 +24,7 @@
                         Background="LightGray"
                                 HorizontalAlignment="Center"
                                 Height="75" Width="175">
-                        <TextBlock Text="{Binding NickName}" 
+                        <TextBlock Text="{Binding UserName}" 
                                FontSize="16" Foreground="Green"/>
                         <Image
                             x:Name="Image_Challenge"

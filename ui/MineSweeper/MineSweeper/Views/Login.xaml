@@ -15,7 +15,9 @@
             <TextBlock Text="Enter your username below" Margin="0,0,0,10"
                TextWrapping="Wrap" Width="300"
                TextAlignment="Center" VerticalAlignment="Center" FontSize="16"/>
-            <TextBox x:Name="UsernameTextBox" Margin="4" Width="250" TextChanged="UserpasswordTextBox_TextChanged"/>
+            <TextBox 
+                x:Name="UsernameTextBox" Margin="4" Width="250" 
+                     TextChanged="UserpasswordTextBox_TextChanged"/>
             <TextBlock Text="Enter your password below" Margin="0,0,0,10"
                TextWrapping="Wrap" Width="300"
                TextAlignment="Center" VerticalAlignment="Center" FontSize="16"/>

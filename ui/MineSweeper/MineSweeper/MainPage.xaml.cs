@@ -37,7 +37,7 @@ namespace MineSweeper
             {
                 players.Add(new Player
                 {
-                    NickName = "hha" + i,
+                    UserName = "hha" + i,
                     Score = 100,
                     Email = "fuck"
                 });
@@ -66,18 +66,19 @@ namespace MineSweeper
 
         private void PlayerListView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            dynamic  clickItem = e.ClickedItem;
+            Player  clickItem = e.ClickedItem as Player;
             Debug.WriteLine("if the value is null?");
             ListViewItem item = PlayerListView.ContainerFromItem(clickItem) as ListViewItem;
             if(item != null)
             {
-                Player value = ((ListView)sender).SelectedValue as Player;
+              
+                
                 item.Background = new SolidColorBrush(Colors.Transparent);
                 Debug.WriteLine("want to trigger info dialog");
-                if(value == null)
+                if(clickItem == null)
                     Debug.WriteLine("player is null!");
                 else
-                    ShowPlayerInfoDialog(value);
+                    ShowPlayerInfoDialog(clickItem);
                
             }
         }
@@ -87,7 +88,7 @@ namespace MineSweeper
         {
             Debug.WriteLine("dialog triggered!!");
             var content = "你确定要挑战这名玩家吗？\n" + "player:" + player.Email
-                + "\n nickname:" + player.NickName + "\n score" + player.Score ;
+                + "\n nickname:" + player.UserName + "\n score" + player.Score ;
             ContentDialog dialog = new ContentDialog()
             {
                 Title = "No wifi connection",

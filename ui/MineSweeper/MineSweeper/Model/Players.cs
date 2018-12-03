@@ -9,7 +9,7 @@ namespace MineSweeper.Model
     class Player
     {
         public string Email { get; set; }
-        public string NickName { get; set; }
+        public string UserName { get; set; }
         public int Score { get; set; }
     }
 }

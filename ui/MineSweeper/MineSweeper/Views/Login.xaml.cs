@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MineSweeper.Presenter;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,17 +23,37 @@ namespace MineSweeper.Views
     /// </summary>
     public sealed partial class Login : Page
     {
+        string UserPassword;
+        string UserName;
+        IService service;
+
         public Login()
         {
             this.InitializeComponent();
         }
+
 
         private void PassportSignInButton_Click(object sender, RoutedEventArgs e)
         {
             //默认成功登录
             //todo 之后
 
-            Frame.Navigate(typeof(MainPage), null);
+            UserName = UsernameTextBox.Text;
+            UserPassword = UserpasswordTextBox.Text;
+
+            var user = new UserLogin(UserName, UserPassword);
+
+            //暂时默认为成功
+            bool result = true;
+         //   bool result = await service.Login(user);
+            if (result == true)
+            {
+                Frame.Navigate(typeof(MainPage), null);
+            }
+            else
+                DialogCreator.CreateDialog("登陆失败",
+                    "登录失败请重新尝试");
+            
         }
 
 
@@ -44,7 +65,7 @@ namespace MineSweeper.Views
 
         private void UsernameTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            
         }
 
         private void UserpasswordTextBox_TextChanged(object sender,TextChangedEventArgs e)
