@@ -12,9 +12,9 @@
         <StackPanel Orientation="Vertical">
             <TextBlock Text="Login" FontSize="36" Margin="0,10,0,0" TextAlignment="Center"/>
             <TextBlock x:Name="ErrorMessage" Text="" FontSize="20" Margin="4" Foreground="Red" TextAlignment="Center"/>
-            <TextBlock Text="Enter your username below" Margin="0,0,0,10"
+            <TextBlock Text="Enter your email below" Margin="0,0,0,10"
                TextWrapping="Wrap" Width="300"
-               TextAlignment="Center" VerticalAlignment="Center" FontSize="16"/>
+               TextAlignment="Center" VerticalAlignment="Center" FontSize="16" SelectionChanged="TextBlock_SelectionChanged"/>
             <TextBox 
                 x:Name="UsernameTextBox" Margin="4" Width="250" 
                      TextChanged="UserpasswordTextBox_TextChanged"/>

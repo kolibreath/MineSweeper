@@ -1,6 +1,8 @@
 ﻿using MineSweeper.Presenter;
+using MineSweeper.Utils;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -25,13 +27,18 @@ namespace MineSweeper.Views
     {
         string UserPassword;
         string UserName;
-        IService service;
+        IService Service;
 
         public Login()
         {
             this.InitializeComponent();
+            Loaded += InitAccounts;
         }
 
+        private async void  InitAccounts(object sender, RoutedEventArgs e)
+        {
+           await  UserAccountHelper.LoadAccountListAsync();
+        }
 
         private void PassportSignInButton_Click(object sender, RoutedEventArgs e)
         {
@@ -46,8 +53,12 @@ namespace MineSweeper.Views
             //暂时默认为成功
             bool result = true;
          //   bool result = await service.Login(user);
-            if (result == true)
+            if (result && UserAccountHelper.CheckCredential(user))
             {
+                   
+                UserAccountHelper.AddAccount(user);
+                UserAccountHelper.SaveAccountListAsync();
+                Debug.WriteLine("the size of the list" + UserAccountHelper.UserAccounts.Count);
                 Frame.Navigate(typeof(MainPage), null);
             }
             else
@@ -69,6 +80,11 @@ namespace MineSweeper.Views
         }
 
         private void UserpasswordTextBox_TextChanged(object sender,TextChangedEventArgs e)
+        {
+
+        }
+
+        private void TextBlock_SelectionChanged(object sender, RoutedEventArgs e)
         {
 
         }
