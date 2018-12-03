@@ -42,6 +42,7 @@ no params
 ## POST DATA:  
 ```
 {
+    UserName:"蒋中正",
     Email:"734780178@qq.com" //邮件地址 格式：String
     Password:""              //密码 格式:String
 }
@@ -77,17 +78,17 @@ no params
 [
     {
         Email:"习近平",
-        NickName:"习主席",
+        UserName:"习主席",
         Score:100
     },
     {
         Email:"江泽民",
-        NickName:"前国家主席",
+        UserName:"前国家主席",
         Score:99
     },
      {
         Email:"邓小平",
-        NickName:"改革开放设计师",
+        UserName:"改革开放设计师",
         Score:99
     }
     
