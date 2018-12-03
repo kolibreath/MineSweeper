@@ -44,17 +44,7 @@
 书籍： C# 图解教程
 
 # 后端组
-使用Java 开发后端
- ## 参考内容
- ## 基本操作流程
- - 什么是Java 注解
- - [基本的spring Boot 配置](https://www.cnblogs.com/ityouknow/p/5662753.html)
-熟悉基本的Spring boot 中的Java注解
-
-- 使用Spring boot 连接mysql   
-之后可以通过maven 打包成war包的形式在服务器上面运行。
-- 配置maven环境
-如果windows配置mysql 很不方便的话直接上服务器配置
+使用python flask 框架开发后端.
 
 
 # git 工作流
