@@ -1,5 +1,4 @@
-﻿using Flurl.Http;
-using Flurl;
+﻿using Flurl;
 using MineSweeper.Model;
 using System;
 using System.Collections.Generic;
@@ -7,10 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections;
+using Flurl.Http;
 
 namespace MineSweeper.Presenter
 {
-    class  NetService
+    class  IService
     {
         string api = "";
         /// <summary>
@@ -18,7 +18,7 @@ namespace MineSweeper.Presenter
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        async Task<bool> Login(User user)
+        public async Task<bool> Login(User user)
         {
             var requestApi =  api + "login/";
             //实现一个post 请求并且获取返回值
@@ -34,7 +34,7 @@ namespace MineSweeper.Presenter
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        async Task<bool> Signin (User user)
+       public async Task<bool> Signin (User user)
         {
             var requestApi = api + "signin/";  
             Message message = await requestApi.PostJsonAsync(user).ReceiveJson<Message>();
@@ -47,7 +47,7 @@ namespace MineSweeper.Presenter
         /// 获取前三位排名的玩家
         /// </summary>
         /// <returns></returns>
-        async Task< List< Player>> GetTopPlayers()
+        public async Task< List< Player>> GetTopPlayers()
         {
             
             var requestApi = api + "topthree/";

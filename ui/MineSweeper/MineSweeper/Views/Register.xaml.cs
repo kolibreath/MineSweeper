@@ -20,34 +20,29 @@ namespace MineSweeper.Views
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class Login : Page
+    public sealed partial class Register : Page
     {
-        public Login()
+        public Register()
         {
             this.InitializeComponent();
         }
 
-        private void PassportSignInButton_Click(object sender, RoutedEventArgs e)
+        private void PassportRegisterButton_Click(object sender, RoutedEventArgs e)
         {
-            //默认成功登录
-            //todo 之后
 
-            Frame.Navigate(typeof(MainPage), null);
         }
 
-
-        private void RegisterButtonTextBlock_OnPointerPressed(object sender, RoutedEventArgs e)
+        private void RegisterButtonTextBlock_PointerPressed(object sender, PointerRoutedEventArgs e)
         {
-            //跳转到注册界面
-            Frame.Navigate(typeof(Register), null);
+            Frame.Navigate(typeof(Login), null);
+        }
+
+        private void UserpasswordTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
 
         private void UsernameTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void UserpasswordTextBox_TextChanged(object sender,TextChangedEventArgs e)
         {
 
         }

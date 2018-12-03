@@ -1,19 +1,9 @@
-﻿using MineSweeper.Net;
-using System;
+﻿using MineSweeper.Model;
+using MineSweeper.Presenter;
+using MineSweeper.Views;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -24,16 +14,36 @@ namespace MineSweeper
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        private IService service;
+
         public MainPage()
         {
             this.InitializeComponent();
-            Loaded += fuck_you; 
+            Loaded += MainPage_Loaded;
+
+            service = new IService();
         }
 
-        private async void fuck_you(object sender ,RoutedEventArgs e)
+        //todo test will this works???
+        private   void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
-           Debug. WriteLine(await NetHelper.HttpGet("http://www.baidu.com"));
+            //   UserListView.ItemsSource = await service.GetTopPlayers();
+            List<Player> players = new List<Player>();
+            for(int i = 0;i<5;i++)
+            {
+                players.Add(new Player
+                {
+                    NickName = "hha" + i,
+                    Score = 100,
+                    Email = "fuck"
+                });
+            }
+
+            PlayerListView.ItemsSource = players;
         }
+
+      
+      
 
     }
 }
