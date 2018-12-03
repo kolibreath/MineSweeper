@@ -10,6 +10,8 @@
 
     <Grid>
         <ListView
+            IsItemClickEnabled="True"
+            ItemClick="PlayerListView_ItemClick"
             x:Name="PlayerListView"
             Width="200" 
             Margin="0,0,100,0"
@@ -17,17 +19,24 @@
             VerticalAlignment="Bottom">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Grid>
-                        <Border Background="LightGray"
+                    <StackPanel
+                        Orientation="Horizontal"
+                        Background="LightGray"
                                 HorizontalAlignment="Center"
                                 Height="75" Width="175">
-                            <TextBlock Text="{Binding NickName}" 
+                        <TextBlock Text="{Binding NickName}" 
                                FontSize="16" Foreground="Green"/>
-                        </Border>
-                    </Grid>
+                        <Image
+                            x:Name="Image_Challenge"
+                            Width="16"
+                            Height="16"
+                            Source="Assets/StoreLogo.png"
+                            />
+                    </StackPanel>
                 </DataTemplate>
-            </ListView.ItemTemplate>
 
+            </ListView.ItemTemplate>
+           
         </ListView>
         <StackPanel 
                 Orientation="Horizontal"
@@ -37,11 +46,13 @@
                 VerticalAlignment="Center">
             <StackPanel
                 Background="SteelBlue"
-                HorizontalAlignment="Right"
-                 Width="300" Height="600" >
+                HorizontalAlignment="Center"
+                 Width="300" Height="600" Margin="0,0,0,0" VerticalAlignment="Top" >
                 <TextBlock 
+                    x:Name="Normal_Stage"
                     Text="Normal"
                     Foreground="Black"
+                    PointerPressed="Normal_Stage_PointerPressed"
                     FontSize="50"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Center"
@@ -49,22 +60,26 @@
             </StackPanel>
             <StackPanel
                 Orientation="Vertical"
+                Background="Aqua"
                 HorizontalAlignment="Right"
                  Width="300" Height="700" >
                 <StackPanel 
                     Width="300" Height="300">
-                    <Rectangle 
-                    Width="300" Height="300"    
-                    Fill="ForestGreen">
-                    </Rectangle>
+                    <TextBlock
+                        x:Name="Medium_Stage"
+                        PointerPressed="Medium_Stage_PointerPressed"
+                    Width="300" Height="300">
+                    </TextBlock>
                 </StackPanel>
 
-                <StackPanel              
+                <StackPanel           
+                    Background="AliceBlue"
                     Width="300" Height="300">
-                    <Rectangle 
-                    Width="400" Height="400"    
-                    Fill="Goldenrod">
-                    </Rectangle>
+                    <TextBlock 
+                        x:Name="Hard_Stage"
+                        PointerPressed="Hard_Stage_PointerPressed"
+                    Width="300" Height="300">
+                    </TextBlock>
                 </StackPanel>
             </StackPanel>
         </StackPanel>
