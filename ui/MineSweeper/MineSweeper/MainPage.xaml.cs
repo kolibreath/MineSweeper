@@ -45,6 +45,7 @@ namespace MineSweeper
             TopPlayers = players;
             PlayerListView.ItemsSource = players;
             Debug.WriteLine("loaded?");
+
         }
 
     

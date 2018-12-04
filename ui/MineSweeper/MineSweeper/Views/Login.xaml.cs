@@ -33,11 +33,39 @@ namespace MineSweeper.Views
         {
             this.InitializeComponent();
             Loaded += InitAccounts;
+
+
+          
         }
 
         private async void  InitAccounts(object sender, RoutedEventArgs e)
         {
-           await  UserAccountHelper.LoadAccountListAsync();
+            //测试生成炸弹
+            MineGenerator mine = new MineGenerator(9, 9, 10);
+            //随机表示炸弹
+            for (int i = 0; i < 9; i++)
+            {
+                for (int j = 0; j < 9; j++)
+                {
+                    Debug.Write(mine.Field[i, j]);
+                    Debug.Write(" ");
+                }
+                Debug.WriteLine("");
+            }
+
+            Debug.WriteLine("");
+
+            //随机表示炸弹
+            for (int i = 0; i < 9; i++)
+            {
+                for (int j = 0; j < 9; j++)
+                {
+                    Debug.Write(mine.Panel[i, j]);
+                    Debug.Write(" ");
+                }
+                Debug.WriteLine("");
+            }
+            await  UserAccountHelper.LoadAccountListAsync();
         }
 
         private void PassportSignInButton_Click(object sender, RoutedEventArgs e)

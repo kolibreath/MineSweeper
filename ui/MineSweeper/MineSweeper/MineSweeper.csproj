@@ -127,6 +127,7 @@
     <Compile Include="Model\UserLogin.cs" />
     <Compile Include="Model\UserRegister.cs" />
     <Compile Include="Presenter\IService.cs" />
+    <Compile Include="Presenter\MineGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\UserAccountHelper.cs" />
     <Compile Include="Views\DialogCreator.cs" />
