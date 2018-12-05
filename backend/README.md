@@ -107,7 +107,7 @@ url| header | methods
 
 ## URL Params  
 ```
-?email=xxxx 
+?email=xxxx&score=111
 ```
 ## RETURN DATA:  
 
@@ -128,13 +128,14 @@ url| header | methods
 
 ## URL Params  
 ```
-no params
+?userid=1
 ```
 ## RETURN DATA:  
 
 ```
 {
     Msg:"收到挑战 / 并没有收到挑战",
+    Score: 111,            // 挑战人的成绩
     Code:200(200 == 收到挑战 / 404 ==  没有挑战)
 }
 ```
