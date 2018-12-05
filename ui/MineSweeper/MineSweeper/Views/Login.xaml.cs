@@ -41,11 +41,11 @@ namespace MineSweeper.Views
         private async void  InitAccounts(object sender, RoutedEventArgs e)
         {
             //测试生成炸弹
-            MineGenerator mine = new MineGenerator(9, 9, 10);
+            MineGenerator mine = new MineGenerator(10, 10, 10);
             //随机表示炸弹
-            for (int i = 0; i < 9; i++)
+            for (int i = 0; i < 10; i++)
             {
-                for (int j = 0; j < 9; j++)
+                for (int j = 0; j < 10; j++)
                 {
                     Debug.Write(mine.Field[i, j]);
                     Debug.Write(" ");
@@ -56,16 +56,45 @@ namespace MineSweeper.Views
             Debug.WriteLine("");
 
             //随机表示炸弹
-            for (int i = 0; i < 9; i++)
+            for (int i = 0; i < 10; i++)
             {
-                for (int j = 0; j < 9; j++)
+                for (int j = 0; j < 10; j++)
                 {
                     Debug.Write(mine.Panel[i, j]);
                     Debug.Write(" ");
                 }
                 Debug.WriteLine("");
             }
-            await  UserAccountHelper.LoadAccountListAsync();
+
+            Debug.WriteLine("");
+            mine.InitArea(3,0,4,4,10);
+            //生成开始的阶段
+            for (int i = 0; i < 10; i++)
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    Debug.Write(mine.Record[i, j]);
+                    Debug.Write(" ");
+                }
+                Debug.WriteLine("");
+            }
+
+            Debug.WriteLine("");
+
+            AutoMineSweeper autoMineSweeper = new AutoMineSweeper(10, 10, 10,mine);
+            //autoMineSweeper.Sweep(3, 3);
+            autoMineSweeper.ExecuteSweepAsync(3, 3,4);
+
+            for (int i = 0; i < 10; i++)
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    Debug.Write(autoMineSweeper.Record[i, j]);
+                    Debug.Write(" ");
+                }
+                Debug.WriteLine("");
+            }
+            await UserAccountHelper.LoadAccountListAsync();
         }
 
         private void PassportSignInButton_Click(object sender, RoutedEventArgs e)

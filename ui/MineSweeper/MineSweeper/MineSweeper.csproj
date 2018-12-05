@@ -126,6 +126,7 @@
     <Compile Include="Model\Players.cs" />
     <Compile Include="Model\UserLogin.cs" />
     <Compile Include="Model\UserRegister.cs" />
+    <Compile Include="Presenter\AutoMineSweeper.cs" />
     <Compile Include="Presenter\IService.cs" />
     <Compile Include="Presenter\MineGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

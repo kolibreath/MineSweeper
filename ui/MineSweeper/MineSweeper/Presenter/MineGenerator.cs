@@ -20,7 +20,12 @@ namespace MineSweeper.Presenter
         //panel[i,j]表示这个点这里的数字 如果 1 即表示周围八个点有有一个确定的炸弹
         public int[,] Panel { get; set; }
 
+        //记录一个扫雷的情况
+        private const int OPEN = 9;
+        public int[,] Record { get; set; }
 
+
+        private int current = 0;
         //初始化Field 和 Panel 
         //如果踩到炸弹的话直接结束游戏 不会 展示panel中记录的周围的炸弹数目
         public MineGenerator(int Row, int Column,int Bombs)
@@ -30,6 +35,7 @@ namespace MineSweeper.Presenter
             this.Column = Column;
             this.Field = new int[Row, Column];
             this.Panel = new int[Row, Column];
+            this.Record = new int[Row, Column];
             //随机选取Bomb个点作为炸弹生成
             int counter = 0;
             while(counter < Bombs)
@@ -74,11 +80,38 @@ namespace MineSweeper.Presenter
 
                     Panel[i, j] = bombCounter;
                 }
-           
-
         }
+        
+        //生成field 的初始区域 使用dfs 
+        //有一个生成总数 如果超过生成总数也不会继续生成
+        public void InitArea(int dfs,int level,int x , int y,int max)
+        {
+            if (level > dfs || current > max)
+                return;
+
+            //全局最小值
+            current++;
+
+            Record[x, y] = OPEN;
+
+            int[] dy = { -1, 0, 1 };
+            int[] dx = { -1, 0, 1 };
 
 
+            for(int i = 0;i < dfs; i++)
+            {
+                for(int j = 0; j< dfs; j++)
+                {
+                    int nextX = x + dx[i];
+                    int nextY = y + dy[j];
+                    if (nextX < 0 || nextX >= Row || nextY < 0 || nextY >= Column)
+                        continue;
+                    if (Field[nextX, nextY] == -1)
+                        continue;
+                    InitArea(dfs, level + 1, nextX, nextY,max);
+                } 
+            }
+        }
 
     }
 }   
