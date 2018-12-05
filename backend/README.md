@@ -61,6 +61,35 @@ no params
 
 ```
 
+# 上传成绩
+url| header | methods  
+---|--------|-------- 
+/grade/ | Content-Type:application/json |  POST
+
+## URL Params  
+```
+no params 
+```
+## POST DATA:  
+```
+{
+    "UserId": 1,
+    "Score": 99
+}
+
+```
+
+
+## RETURN DATA:  
+
+```
+{
+    Msg:"上传成功/失败"  
+    Code:200/400 // 200成功 400失败
+}
+
+```
+
 # 获取前三名玩家！
 
 
