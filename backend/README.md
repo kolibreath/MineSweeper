@@ -26,6 +26,7 @@ no params
 ```
 {
     Msg:"登陆成功 / 并没有登录成功",
+    UserId: 1,
     Code:200(200 == 成功/ 400 ==  失败)
 }
 ```
@@ -33,7 +34,7 @@ no params
 # 注册
 url| header | methods  
 ---|--------|-------- 
-/signin/ | Content-Type:application/json |  POST
+/signup/ | Content-Type:application/json |  POST
 
 ## URL Params  
 ```
@@ -56,6 +57,35 @@ no params
 {
     Msg:"注册成功/并没有注册陈工"  
     Code:200/400 //int
+}
+
+```
+
+# 上传成绩
+url| header | methods  
+---|--------|-------- 
+/grade/ | Content-Type:application/json |  POST
+
+## URL Params  
+```
+no params 
+```
+## POST DATA:  
+```
+{
+    "UserId": 1,
+    "Score": 99
+}
+
+```
+
+
+## RETURN DATA:  
+
+```
+{
+    Msg:"上传成功/失败"  
+    Code:200/400 // 200成功 400失败
 }
 
 ```
@@ -106,7 +136,7 @@ url| header | methods
 
 ## URL Params  
 ```
-?email=xxxx 
+?myid=1&email=xxxx&score=111
 ```
 ## RETURN DATA:  
 
@@ -127,13 +157,14 @@ url| header | methods
 
 ## URL Params  
 ```
-no params
+?myid=1
 ```
 ## RETURN DATA:  
 
 ```
 {
     Msg:"收到挑战 / 并没有收到挑战",
+    Score: 111,            // 挑战人的成绩
     Code:200(200 == 收到挑战 / 404 ==  没有挑战)
 }
 ```
