@@ -107,7 +107,7 @@ url| header | methods
 
 ## URL Params  
 ```
-?email=xxxx&score=111
+?myid=1&email=xxxx&score=111
 ```
 ## RETURN DATA:  
 
@@ -128,7 +128,7 @@ url| header | methods
 
 ## URL Params  
 ```
-?userid=1
+?myid=1
 ```
 ## RETURN DATA:  
 
