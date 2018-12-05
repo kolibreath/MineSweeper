@@ -33,7 +33,7 @@ no params
 # 注册
 url| header | methods  
 ---|--------|-------- 
-/signin/ | Content-Type:application/json |  POST
+/signup/ | Content-Type:application/json |  POST
 
 ## URL Params  
 ```
