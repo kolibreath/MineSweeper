@@ -107,16 +107,19 @@ no params
 ```
 [
     {
+        UserId: 1,
         Email:"习近平",
         UserName:"习主席",
         Score:100
     },
     {
+        UserId: 2,
         Email:"江泽民",
         UserName:"前国家主席",
         Score:99
     },
      {
+        UserId: 3,
         Email:"邓小平",
         UserName:"改革开放设计师",
         Score:99
@@ -136,7 +139,7 @@ url| header | methods
 
 ## URL Params  
 ```
-?myid=1&email=xxxx&score=111
+?myid=1&otherid=2&score=111
 ```
 ## RETURN DATA:  
 
