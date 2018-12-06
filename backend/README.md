@@ -139,7 +139,7 @@ url| header | methods
 
 ## URL Params  
 ```
-?myid=1&otherid=2&score=111
+?myid=1&otherid=2
 ```
 ## RETURN DATA:  
 
