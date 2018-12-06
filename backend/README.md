@@ -64,7 +64,7 @@ no params
 # 上传成绩
 url| header | methods  
 ---|--------|-------- 
-/grade/ | Content-Type:application/json |  POST
+/score/ | Content-Type:application/json |  POST
 
 ## URL Params  
 ```
