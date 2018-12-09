@@ -21,7 +21,9 @@ def topthree():
     returninfos = []
     for u in users:
         returninfos.append(userinfofactory(u))
-    return jsonify(returninfos)
+    return jsonify({
+        "TopPlayers": returninfos 
+        })
 
 
 @api.route('/challenge/', methods = ['GET'])
