@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections;
 using Flurl.Http;
+using System.Diagnostics;
 
 namespace MineSweeper.Presenter
 {
@@ -22,11 +23,20 @@ namespace MineSweeper.Presenter
         {
             var requestApi =  api + "login/";
             //实现一个post 请求并且获取返回值
-            Message message = await requestApi.PostJsonAsync(user).ReceiveJson<Message>();
-            if (message.Code == 200)
-                return true;
-            else
+            Message message = null;
+            try
+            {
+                message = await requestApi.PostJsonAsync(user).ReceiveJson<Message>();
+                if (message.Code == 200)
+                    return true;
+                else
+                    return false;
+            }
+            catch (FlurlHttpException e)
+            {
+                Debug.WriteLine(e.Message);
                 return false;
+            }
         }
 
         /// <summary>
@@ -36,12 +46,21 @@ namespace MineSweeper.Presenter
         /// <returns></returns>
        public async Task<bool> SignUp (UserRegister user)
         {
-            var requestApi = api + "signup/";  
-            Message message = await requestApi.PostJsonAsync(user).ReceiveJson<Message>();
-            if (message.Code == 200)
-                return true;
-            else
+            var requestApi = api + "signup/";
+            Message message = null;
+            try
+            {
+                message = await requestApi.PostJsonAsync(user).ReceiveJson<Message>();
+                if (message.Code == 200)
+                    return true;
+                else
+                    return false;
+            }
+            catch(FlurlHttpException e)
+            {
+                Debug.WriteLine(e.Message);
                 return false;
+            }
         }
         /// <summary>
         /// 获取前三位排名的玩家

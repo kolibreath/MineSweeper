@@ -44,6 +44,7 @@ namespace MineSweeper.Utils
             if (File.Exists(_accountListPath))
             {
                 StorageFile accountFile = await StorageFile.GetFileFromPathAsync(_accountListPath);
+                Debug.WriteLine(_accountListPath);
                 await FileIO.WriteTextAsync(accountFile, accountXml);
             }
             else
@@ -75,7 +76,7 @@ namespace MineSweeper.Utils
             if (File.Exists(_accountListPath))
             {
                 StorageFile accountFile = await StorageFile.GetFileFromPathAsync(_accountListPath);
-
+                Debug.WriteLine(_accountListPath);
                 string accountsXml = await FileIO.ReadTextAsync(accountFile);
                 UserAccounts = 
                     DeserializeXmlToAccountList(accountsXml);
