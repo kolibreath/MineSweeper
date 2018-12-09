@@ -2,11 +2,11 @@ import os
 
 DIALECT = 'mysql'
 DRIVER = 'pymysql'
-USERNAME = os.getenv("WORKBENCH_USERNAME")
-PASSWORD = os.getenv("WORKBENCH_PASSWORD")
-HOST = os.getenv("WORKBENCH_HOST")
+USERNAME = os.getenv("MINE_USERNAME")
+PASSWORD = os.getenv("MINE_PASSWORD")
+HOST = os.getenv("MINE_HOST")
 PORT = 3306
-DATABASE = os.getenv("WORKBENCH_DBNAME")
+DATABASE = "testminesweeper"
 
 class Config:
     SECRET_KEY = os.getenv("WORKBENCH_SECRET_WORK_KEY")

@@ -64,7 +64,7 @@ no params
 # 上传成绩
 url| header | methods  
 ---|--------|-------- 
-/grade/ | Content-Type:application/json |  POST
+/score/ | Content-Type:application/json |  POST
 
 ## URL Params  
 ```
@@ -107,16 +107,19 @@ no params
 ```
 [
     {
+        UserId: 1,
         Email:"习近平",
         UserName:"习主席",
         Score:100
     },
     {
+        UserId: 2,
         Email:"江泽民",
         UserName:"前国家主席",
         Score:99
     },
      {
+        UserId: 3,
         Email:"邓小平",
         UserName:"改革开放设计师",
         Score:99
@@ -136,7 +139,7 @@ url| header | methods
 
 ## URL Params  
 ```
-?myid=1&email=xxxx&score=111
+?myid=1&otherid=2
 ```
 ## RETURN DATA:  
 
@@ -164,6 +167,7 @@ url| header | methods
 ```
 {
     Msg:"收到挑战 / 并没有收到挑战",
+    UserName: "维尼",
     Score: 111,            // 挑战人的成绩
     Code:200(200 == 收到挑战 / 404 ==  没有挑战)
 }

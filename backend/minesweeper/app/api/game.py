@@ -8,13 +8,14 @@ from ..decorator import login_required
 def topthree():
     def userinfofactory(user):
         return {
+            "UserId": user.id,
             "Email": user.email,
             "UserName": user.username,
             "Score": user.score 
         }
 
     users = User.query.all()
-    sort(users, key = lambda u:u.score)
+    users = sorted(users, key = lambda u: u.score, reverse=True)
     if len(users) >= 3:
         users = users[:3]
     returninfos = []
@@ -26,17 +27,17 @@ def topthree():
 @api.route('/challenge/', methods = ['GET'])
 def challenge():
     myid = request.args.get('myid')
-    email = request.args.get('email')
-    score = request.args.get('score')
-    user = User.query.filter_by(email = email).first() or None
-    if not user:
+    otherid = request.args.get('otherid')
+    user = User.query.filter_by(id = myid).first() or None
+    other = User.query.filter_by(id = otherid).first() or None 
+    if not user or not other:
         return jsonify({
                 'Msg': 'notfound',
                 'Code': 400
             })
     
-    user.ifchallenge = 1
-    user.challenger_id = myid
+    other.ifchallenge = 1
+    other.challenger_id = myid
     return jsonify({
         "Msg": "ok",
         "Code": 200
@@ -56,6 +57,7 @@ def status():
         cu = User.query.filter_by(id = user.challenger_id).first() or None
         return jsonify({
                 'Msg': 'yes',
+                'UserName': cu.username, 
                 'Score': cu.score,
                 'Code': 200
             })
@@ -66,7 +68,7 @@ def status():
             })
 
 
-@api.route('/score/', methods = ['GET'])
+@api.route('/score/', methods = ['POST'])
 def score():
     userid = request.get_json().get("UserId")
     score = request.get_json().get("Score")
