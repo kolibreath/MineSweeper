@@ -45,8 +45,11 @@ namespace MineSweeper.Utils
             {
                 StorageFile accountFile = await StorageFile.GetFileFromPathAsync(_accountListPath);
                 Debug.WriteLine(_accountListPath);
-                await FileIO.WriteTextAsync(accountFile, accountXml);
-            }
+                try {
+                    await FileIO.WriteTextAsync(accountFile, accountXml);
+                    //蹩脚的try-catch
+                }catch(Exception e) { }
+               }
             else
             {
                 StorageFile accountFile = await ApplicationData.Current.LocalFolder.CreateFileAsync(USER_ACCOUNT_LIST_FILE_NAME);

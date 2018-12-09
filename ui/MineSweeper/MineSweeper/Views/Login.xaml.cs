@@ -45,17 +45,16 @@ namespace MineSweeper.Views
         {
             if (e.Parameter != null)
             {
-                _isExistingAccount = true;
-                UserLogin = e.Parameter as UserLogin;
-                //事实上应该命名为UserEmail
-               // UsernameTextBox.Text = UserLogin.Email;
-                SignInPassport();
+                if (e.Parameter is UserLogin)
+                {
+                    _isExistingAccount = true;
+                    UserLogin = (UserLogin)e.Parameter;
+                    //事实上应该命名为UserEmail
+                    Debug.WriteLine(UserLogin.Email);
+                    // UsernameTextBox.Text = UserLogin.Email;
+                    SignInPassport();
+                }
             }
-            else
-            {
-                DialogCreator.CreateDialog("文件读写错误！", "用户名信息传递为空！");
-            }
-            
         }
 
         private async void  InitAccounts(object sender, RoutedEventArgs e)
@@ -73,22 +72,29 @@ namespace MineSweeper.Views
 
         private async void  SignInPassport()
         {
-            //默认成功登录
-            //todo 之后
-
-            UserName = UsernameTextBox.Text;
-            UserPassword = UserpasswordTextBox.Text;
-
-            var user = new UserLogin(UserName, UserPassword);
+            //需要判断从哪里加载用户
+            UserLogin user = null;
+            if (!_isExistingAccount){
+                UserName = UsernameTextBox.Text;
+                UserPassword = UserpasswordTextBox.Text;
+                user = new UserLogin(UserName, UserPassword);
+            }else
+            {
+                UsernameTextBox.Text = UserLogin.Email;
+                UserpasswordTextBox.Text = UserLogin.Password;
+                user = UserLogin;
+            } 
 
             //暂时默认为成功
 
             bool result = await Service.Login(user);
             if (result && UserAccountHelper.CheckCredential(user))
             {
-
-                UserAccountHelper.AddAccount(user);
-                UserAccountHelper.SaveAccountListAsync();
+                if (!_isExistingAccount)
+                {
+                    UserAccountHelper.AddAccount(user);
+                    UserAccountHelper.SaveAccountListAsync();
+                }
                 Debug.WriteLine("the size of the list" + UserAccountHelper.UserAccounts.Count);
                 Frame.Navigate(typeof(MainPage), null);
             }

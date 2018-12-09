@@ -1,6 +1,7 @@
 ﻿using MineSweeper.Utils;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -36,6 +37,8 @@ namespace MineSweeper.Views
             if(listview.SelectedValue != null)
             {
                 UserLogin userlogin = listview.SelectedValue as UserLogin;
+                //传递内容是不是有问题？
+                Debug.WriteLine(userlogin.Email);
                 //直接将数据传递到Login
                 Frame.Navigate(typeof(Login), userlogin);
             }
