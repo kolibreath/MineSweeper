@@ -64,3 +64,4 @@
 - nomal中有gift和tree两种，作为不同的得分（gift*2，tree*1）
 - people为默认头像
 - flashScreen为闪屏
+- easy，medium，hard为选择难度等级的图标
