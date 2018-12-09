@@ -56,3 +56,11 @@
 
 - ui开发文件放在ui路径下
 - 后端开发文件放在backend路径下
+
+# UI图标
+- 网盘链接 https://pan.baidu.com/s/18J7mMFCZ_hT4eBSn-ENuQg
+- filed为游戏开始时默认的土地
+- monster为“炸弹”
+- nomal中有gift和tree两种，作为不同的得分（gift*2，tree*1）
+- people为默认头像
+- flashScreen为闪屏
