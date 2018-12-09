@@ -9,6 +9,13 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
+
+        <Ellipse Width="200" Height="200" Margin="1072,200,228,600" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Ellipse.Fill>
+                <ImageBrush ImageSource="assets/1.jpg"/>
+            </Ellipse.Fill>
+        </Ellipse>
+        
         <ListView
             IsItemClickEnabled="True"
             ItemClick="PlayerListView_ItemClick"

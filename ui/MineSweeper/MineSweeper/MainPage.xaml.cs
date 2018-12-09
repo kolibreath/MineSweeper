@@ -29,21 +29,11 @@ namespace MineSweeper
         }
 
         //todo test will this works???
-        private   void MainPage_Loaded(object sender, RoutedEventArgs e)
+        private async void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
-            //   UserListView.ItemsSource = await service.GetTopPlayers();
-            List<Player> players = new List<Player>();
-            for(int i = 0;i<5;i++)
-            {
-                players.Add(new Player
-                {
-                    UserName = "hha" + i,
-                    Score = 100,
-                    Email = "fuck"
-                });
-            }
-            TopPlayers = players;
-            PlayerListView.ItemsSource = players;
+          
+            TopPlayers = await service.GetTopPlayers() ;
+            PlayerListView.ItemsSource = TopPlayers;
             Debug.WriteLine("loaded?");
 
         }

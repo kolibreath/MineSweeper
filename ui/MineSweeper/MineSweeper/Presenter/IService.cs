@@ -70,9 +70,9 @@ namespace MineSweeper.Presenter
         {
             
             var requestApi = api + "topthree/";
-            IList<dynamic> list = await requestApi.GetJsonListAsync();
+            Players ps = await requestApi.GetJsonAsync<Players>();
             List<Player> players = new List<Player>();
-            foreach( Player player in list)
+            foreach( Player player in ps.TopPlayers)
             {
                 players.Add(player);
             }

@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace MineSweeper.Model
 {
+    class Players
+    {
+        public List<Player> TopPlayers { get; set; }
+    }
     class Player
     {
         public string Email { get; set; }
