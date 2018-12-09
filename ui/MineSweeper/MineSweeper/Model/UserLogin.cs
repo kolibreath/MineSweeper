@@ -13,12 +13,11 @@ namespace MineSweeper
   
     public class UserLogin
     {
-        private string userName;
 
         public string Email { get; set; }
 
         
-        public  string Passowrd { get; set; }
+        public  string Password { get; set; }
 
         public UserLogin()
         {
@@ -27,7 +26,7 @@ namespace MineSweeper
         public UserLogin(string email, string password)
         {
             Email = email;
-            Passowrd = password;
+            Password = password;
         }
 
       

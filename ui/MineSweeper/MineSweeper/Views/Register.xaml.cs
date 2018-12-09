@@ -1,4 +1,5 @@
 ﻿using MineSweeper.Model;
+using MineSweeper.Presenter;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -23,6 +24,7 @@ namespace MineSweeper.Views
     /// </summary>
     public sealed partial class Register : Page
     {
+        IService Service = new IService();
         string UserName;
         string Userpassword;
         string Email;
@@ -32,13 +34,22 @@ namespace MineSweeper.Views
             this.InitializeComponent();
         }
 
-        private void PassportRegisterButton_Click(object sender, RoutedEventArgs e)
+        private async void PassportRegisterButton_Click(object sender, RoutedEventArgs e)
         {
             UserName = UsernameTextBox.Text;
             Userpassword = UserpasswordTextBox.Text;
             Email = UserEmailTextBox.Text;
 
             UserRegister register = new UserRegister(UserName, Userpassword, Email);
+            bool result = await Service.SignUp(register);
+            if (result)
+            {
+                Frame.Navigate(typeof(Login),null);
+            }
+            else
+            {
+                DialogCreator.CreateDialog("登录失败", "请重新登录");
+            }
             //todo 注册到服务器
         }
 

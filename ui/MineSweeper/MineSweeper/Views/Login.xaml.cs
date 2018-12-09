@@ -27,7 +27,7 @@ namespace MineSweeper.Views
     {
         string UserPassword;
         string UserName;
-        IService Service;
+        IService Service = new IService();
 
         public Login()
         {
@@ -40,64 +40,11 @@ namespace MineSweeper.Views
 
         private async void  InitAccounts(object sender, RoutedEventArgs e)
         {
-            //测试生成炸弹
-            MineGenerator mine = new MineGenerator(10, 10, 10);
-            //随机表示炸弹
-            for (int i = 0; i < 10; i++)
-            {
-                for (int j = 0; j < 10; j++)
-                {
-                    Debug.Write(mine.Field[i, j]);
-                    Debug.Write(" ");
-                }
-                Debug.WriteLine("");
-            }
-
-            Debug.WriteLine("");
-
-            //随机表示炸弹
-            for (int i = 0; i < 10; i++)
-            {
-                for (int j = 0; j < 10; j++)
-                {
-                    Debug.Write(mine.Panel[i, j]);
-                    Debug.Write(" ");
-                }
-                Debug.WriteLine("");
-            }
-
-            Debug.WriteLine("");
-            mine.InitArea(3,0,4,4,10);
-            //生成开始的阶段
-            for (int i = 0; i < 10; i++)
-            {
-                for (int j = 0; j < 10; j++)
-                {
-                    Debug.Write(mine.Record[i, j]);
-                    Debug.Write(" ");
-                }
-                Debug.WriteLine("");
-            }
-
-            Debug.WriteLine("");
-
-            AutoMineSweeper autoMineSweeper = new AutoMineSweeper(10, 10, 10,mine);
-            //autoMineSweeper.Sweep(3, 3);
-            autoMineSweeper.ExecuteSweepAsync(3, 3,4);
-
-            for (int i = 0; i < 10; i++)
-            {
-                for (int j = 0; j < 10; j++)
-                {
-                    Debug.Write(autoMineSweeper.Record[i, j]);
-                    Debug.Write(" ");
-                }
-                Debug.WriteLine("");
-            }
+           
             await UserAccountHelper.LoadAccountListAsync();
         }
 
-        private void PassportSignInButton_Click(object sender, RoutedEventArgs e)
+        private async void PassportSignInButton_Click(object sender, RoutedEventArgs e)
         {
             //默认成功登录
             //todo 之后
@@ -108,8 +55,8 @@ namespace MineSweeper.Views
             var user = new UserLogin(UserName, UserPassword);
 
             //暂时默认为成功
-            bool result = true;
-         //   bool result = await service.Login(user);
+        
+            bool result = await Service.Login(user);
             if (result && UserAccountHelper.CheckCredential(user))
             {
                    

@@ -12,7 +12,7 @@ namespace MineSweeper.Presenter
 {
     class  IService
     {
-        string api = "";
+        string api = "http://39.108.79.110:4242/api/v1.0/";
         /// <summary>
         /// 登录成功之后返回值
         /// </summary>
@@ -34,9 +34,9 @@ namespace MineSweeper.Presenter
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-       public async Task<bool> Signin (UserLogin user)
+       public async Task<bool> SignUp (UserRegister user)
         {
-            var requestApi = api + "signin/";  
+            var requestApi = api + "signup/";  
             Message message = await requestApi.PostJsonAsync(user).ReceiveJson<Message>();
             if (message.Code == 200)
                 return true;

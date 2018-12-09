@@ -10,13 +10,13 @@ namespace MineSweeper.Model
     {
 
      public string UserName { get; set; }
-    public string Userpassword { get; set; }
+    public string Password { get; set; }
         public string Email { get; set; }
 
         public UserRegister(string Username, string UserPassword,string Email)
         {
             this.UserName = Username;
-            this.Userpassword = Userpassword;
+            this.Password = UserPassword;
             this.Email = Email;
         }
     }
