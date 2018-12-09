@@ -65,3 +65,13 @@
 - people为默认头像
 - flashScreen为闪屏
 - easy，medium，hard为选择难度等级的图标
+
+# 音效
+- music目录
+- game为游戏进行时音效
+- begin为进入游戏时音效，直到开始了游戏才停止
+- click为点击雪地音效
+- fail为失败音效（1,2,3）
+- message为收到邀请信息的音效
+- victory为成功音效（1,2）
+
