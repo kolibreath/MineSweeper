@@ -14,6 +14,7 @@ class User(db.Model):
     password_hash = db.Column(db.String(128))
     ifchallenge = db.Column(db.Integer)
     challenger_id = db.Column(db.Integer)
+    challenge_map = db.Column(db.Text)
 
     @property
     def password(self):

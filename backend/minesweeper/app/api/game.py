@@ -26,10 +26,12 @@ def topthree():
         })
 
 
-@api.route('/challenge/', methods = ['GET'])
+@api.route('/challenge/', methods = ['POST'])
 def challenge():
     myid = request.args.get('myid')
     otherid = request.args.get('otherid')
+    mapinfo = str(dict(request.get_json()))
+    print(mapinfo)
     user = User.query.filter_by(id = myid).first() or None
     other = User.query.filter_by(id = otherid).first() or None 
     if not user or not other:
@@ -40,6 +42,8 @@ def challenge():
     
     other.ifchallenge = 1
     other.challenger_id = myid
+    other.challenge_map = mapinfo 
+    db.session.commit() 
     return jsonify({
         "Msg": "ok",
         "Code": 200
@@ -57,12 +61,15 @@ def status():
 
     if user.ifchallenge:
         cu = User.query.filter_by(id = user.challenger_id).first() or None
-        return jsonify({
-                'Msg': 'yes',
-                'UserName': cu.username, 
-                'Score': cu.score,
-                'Code': 200
-            })
+        cmap = eval(str(user.challenge_map))
+        ret = {
+            'Msg': 'yes',
+            'UserName': cu.username,
+            'Score': cu.score,
+            'Code': 200
+        }
+        ret.update(cmap)
+        return jsonify(ret)
     else :
         return jsonify({
                 'Msg': 'no',
