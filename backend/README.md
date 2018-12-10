@@ -166,9 +166,19 @@ url| header | methods
 
 ```
 {
-    Msg:"收到挑战 / 并没有收到挑战",
-    UserName: "维尼",
-    Score: 111,            // 挑战人的成绩
-    Code:200(200 == 收到挑战 / 404 ==  没有挑战)
+    "Msg":"收到挑战 / 并没有收到挑战",
+    "UserName": "维尼",
+    "Score": 111,            
+    "Code":200,
+    //如果收到挑战..
+    "Row":10,
+    "Column":10,
+    "Bomb":20,
+        "Placement": [
+            {
+                "Row":10,
+                "Column":10
+            }
+        ]
 }
 ```
