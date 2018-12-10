@@ -122,7 +122,10 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\Challenge.cs" />
+    <Compile Include="Model\ChallengeMessage.cs" />
     <Compile Include="Model\Message.cs" />
+    <Compile Include="Model\Placement.cs" />
     <Compile Include="Model\Players.cs" />
     <Compile Include="Model\UserLogin.cs" />
     <Compile Include="Model\UserRegister.cs" />
@@ -149,6 +152,10 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\SplashScreen.scale-100.png" />
+    <Content Include="Assets\SplashScreen.scale-125.png" />
+    <Content Include="Assets\SplashScreen.scale-150.png" />
+    <Content Include="Assets\SplashScreen.scale-400.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />

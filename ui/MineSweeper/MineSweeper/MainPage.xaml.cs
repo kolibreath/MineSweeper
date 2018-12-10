@@ -18,6 +18,20 @@ namespace MineSweeper
     /// </summary>
     public sealed partial class MainPage : Page
     {
+
+        //系统同时给两个玩家的Mine 设置
+        MineGenerator MyMine;
+        //tobe set!
+        private Player Challenged;
+
+        //todo to be set
+        private int Row;
+        //todo to be set
+        private int Column;
+
+        //todo to be set
+        private int Bombs;
+
         private IService service;
         private List<Player> TopPlayers;
         public MainPage()
@@ -58,37 +72,74 @@ namespace MineSweeper
         private void PlayerListView_ItemClick(object sender, ItemClickEventArgs e)
         {
             Player  clickItem = e.ClickedItem as Player;
-            Debug.WriteLine("if the value is null?");
             ListViewItem item = PlayerListView.ContainerFromItem(clickItem) as ListViewItem;
             if(item != null)
             {
-              
-                
                 item.Background = new SolidColorBrush(Colors.Transparent);
-                Debug.WriteLine("want to trigger info dialog");
-                if(clickItem == null)
+
+                if (clickItem == null)
                     Debug.WriteLine("player is null!");
                 else
-                    ShowPlayerInfoDialog(clickItem);
-               
+                {
+                    Challenged = clickItem;
+                    ShowPlayerInfoDialog();
+                }
             }
         }
 
         //显示一个提示框
-        private async void ShowPlayerInfoDialog(Player player)
+        private async void ShowPlayerInfoDialog()
         {
             Debug.WriteLine("dialog triggered!!");
-            var content = "你确定要挑战这名玩家吗？\n" + "player:" + player.Email
-                + "\n nickname:" + player.UserName + "\n score" + player.Score ;
+            var content = "你确定要挑战这名玩家吗？\n" + "player:" + Challenged.Email
+                + "\n nickname:" + Challenged.UserName + "\n score" + Challenged.Score ;
             ContentDialog dialog = new ContentDialog()
             {
-                Title = "No wifi connection",
+                Title = "发出挑战通知",
                 Content = content,
                 PrimaryButtonText = "确定",
                 SecondaryButtonText = "取消",
             };
-
+            dialog.PrimaryButtonClick += ChallengePlayerEvent;
             await dialog.ShowAsync();
+        }
+
+
+
+        
+        private async void ChallengePlayerEvent(ContentDialog dialog,ContentDialogButtonClickEventArgs e)
+        {
+            MineGenerator mine = await service.Challenge(Challenged,Row,Column,Bombs);
+          if ( mine != null){
+                //挑战成功
+                MyMine = mine;
+
+                ContentDialog gotoChanllenge = new ContentDialog()
+                {
+                    Title = "挑战成功",
+                    Content = "确定现在开始游戏吗",
+                    PrimaryButtonText = "确定",
+                    SecondaryButtonText = "取消",
+                };
+
+                gotoChanllenge.PrimaryButtonClick += delegate
+                {
+                    Debug.WriteLine("fuck youself!");
+                };
+
+                try
+                {
+                    await dialog.ShowAsync();
+                }
+                catch (Exception exception) { }
+
+
+                //同时向两个玩家发送
+            }
+            else
+            {
+                DialogCreator.CreateDialog("挑战失败！","网络错误，挑战失败");
+            }
         }
     }
 }

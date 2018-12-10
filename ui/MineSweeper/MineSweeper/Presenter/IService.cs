@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Collections;
 using Flurl.Http;
 using System.Diagnostics;
+using MineSweeper.Utils;
 
 namespace MineSweeper.Presenter
 {
@@ -28,7 +29,10 @@ namespace MineSweeper.Presenter
             {
                 message = await requestApi.PostJsonAsync(user).ReceiveJson<Message>();
                 if (message.Code == 200)
+                {
+                    UserAccountHelper.USER_ID = message.UserId;
                     return true;
+                }
                 else
                     return false;
             }
@@ -85,16 +89,41 @@ namespace MineSweeper.Presenter
         /// </summary>
         /// <param name="player"></param>
         /// <returns></returns>
-        async Task<bool> Challenge(Player player)
+        public async Task<MineGenerator> Challenge(Player player,
+            int row,int column,int bombs)
         {
             var requestApi = api+"challenge/";
+            //构造函数中初始化地雷阵
+            MineGenerator mine = new MineGenerator(row, column, bombs);
+            int[,] field = mine.Field;
+
+            List<Placement> placements = new List<Placement>();
+
+            for(int i = 0; i < row; i++)
+            {
+                for (int j = 0; j < column; j++)
+                {
+                    //地雷的数目
+                    if (field[i, j] == 1)
+                    {
+                        Placement placement = new Placement(i, j);
+                        placements.Add(placement);
+                    }
+                }
+            }
+
+            Challenge challenge = new Challenge(row, column, bombs,placements);
+            //挑战某人的时候需要生成挑战的二维数组！
             Message message = await requestApi
-                .SetQueryParam("email", new { player.Email })
-                .GetJsonAsync<Message>();
+                .SetQueryParam("myid", new { UserAccountHelper.USER_ID })
+                .SetQueryParam("otherid", new { player.UserId })
+                .PostJsonAsync(challenge)
+                .ReceiveJson<Message>();
+
             if (message.Code == 200)
-                return true;
+                return mine;
             else
-                return false;
+                return null;
         }
 
         /// <summary>
@@ -102,10 +131,12 @@ namespace MineSweeper.Presenter
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        async Task<bool> GetUpdate(UserLogin user)
+        async Task<bool> GetStatus(UserLogin user)
         {
             var requestApi =  api + "status/";
-            Message message = await requestApi.PostJsonAsync(user).ReceiveJson<Message>();
+            //要根据请求的过程重建这个地雷阵
+            ChallengeMessage message = await requestApi.PostJsonAsync(user).ReceiveJson<ChallengeMessage>();
+
             if (message.Code == 200)
                 return true;
             else

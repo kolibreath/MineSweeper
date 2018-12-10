@@ -12,6 +12,7 @@ namespace MineSweeper.Utils
 {
     static class UserAccountHelper
     {
+        public static int USER_ID = 1;
         private const string USER_ACCOUNT_LIST_FILE_NAME =
             "accountlist.txt";
         private  static  string _accountListPath =

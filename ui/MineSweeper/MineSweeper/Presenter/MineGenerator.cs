@@ -13,6 +13,8 @@ namespace MineSweeper.Presenter
         int Row = 9;
         int Column = 9;
 
+        //表示有没有初始化成功
+        public static bool _is_intialized = false;
         //如果field 内部是-1的话 就表示一个炸弹
         //Field表示一个地雷阵
         public int[,] Field { get; set; }
@@ -80,6 +82,8 @@ namespace MineSweeper.Presenter
 
                     Panel[i, j] = bombCounter;
                 }
+
+            _is_intialized = true;
         }
         
         //生成field 的初始区域 使用dfs 

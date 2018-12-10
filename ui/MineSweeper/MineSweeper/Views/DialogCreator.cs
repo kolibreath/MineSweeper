@@ -10,6 +10,7 @@ namespace MineSweeper.Views
 {
     class DialogCreator
     {
+       
         public static async void CreateDialog(string title, string content)
         {
 
@@ -25,6 +26,11 @@ namespace MineSweeper.Views
               try {
                     await dialog.ShowAsync();
                }catch(Exception e) { }
-            }
+        }
+
+
+     
+       
     }
+
 }
