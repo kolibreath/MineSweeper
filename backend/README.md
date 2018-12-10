@@ -131,22 +131,37 @@ no params
 
 # 挑战某人
 
-> 注意 这是一个GET 请求！
+> 注意 修改成了一个POST 请求！
 
 url| header | methods  
 ---|--------|-------- 
-/challenge/ | Content-Type:application/json |  GET
+/challenge/ | Content-Type:application/json |  POST
 
 ## URL Params  
 ```
 ?myid=1&otherid=2
 ```
+
+## POST DATA   
+````
+{
+    "Row":10,
+    "Column":10,
+    "Bombs":20,
+        "Placements": [
+            {
+                "Row":10,
+                "Column":10
+            }
+        ]
+}
+````
 ## RETURN DATA:  
 
 ```
 {
-    Msg:"挑战成功/并没有注册成功"  
-    Code:200/400 //int
+    "Msg":"挑战成功/并没有注册成功" , 
+    "Code":200
 }
 
 ```
@@ -173,8 +188,8 @@ url| header | methods
     //如果收到挑战..
     "Row":10,
     "Column":10,
-    "Bomb":20,
-        "Placement": [
+    "Bombs":20,
+        "Placements": [
             {
                 "Row":10,
                 "Column":10
