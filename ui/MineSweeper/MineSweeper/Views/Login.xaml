@@ -24,7 +24,9 @@
             <TextBox x:Name="UserpasswordTextBox" Margin="4" Width="250" TextChanged="UsernameTextBox_TextChanged"/>
             <Button x:Name="PassportSignInButton" Content="Login" Background="DodgerBlue" Foreground="White"
         Click="PassportSignInButton_Click" Width="80" HorizontalAlignment="Center" Margin="0,20"/>
-            <TextBlock Text="Don't have an account?"
+            <TextBlock
+                Name="Test"
+                Text="Don't have an account?"
                 TextAlignment="Center" VerticalAlignment="Center" FontSize="16"/>
             <TextBlock x:Name="RegisterButtonTextBlock" Text="Register now"
                PointerPressed="RegisterButtonTextBlock_OnPointerPressed"

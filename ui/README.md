@@ -17,3 +17,13 @@ Task<> 泛型中貌似只会接受一个IList 的实现<br>
 
 - POST GET 请求方式
 https://www.cnblogs.com/Andy-Blog/p/5666180.html
+
+- 后台线程修改UI
+UI线程不能从其他线程随便修改，需要使用调度器调度
+```
+   public async void Invoke(Action action, Windows.UI.Core.CoreDispatcherPriority Priority = Windows.UI.Core.CoreDispatcherPriority.Normal)
+        {
+            await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Priority, () => { action(); });
+        }
+```
+

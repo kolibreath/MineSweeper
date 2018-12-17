@@ -33,7 +33,7 @@ namespace MineSweeper.Views
         IService Service = new IService();
 
         private UserLogin UserLogin;
-        private bool _isExistingAccount;
+        private bool _isExistingAccount = false;
 
         public Login()
         {
@@ -59,9 +59,16 @@ namespace MineSweeper.Views
 
         private async void  InitAccounts(object sender, RoutedEventArgs e)
         {
+
+            TimerCounter counter = new TimerCounter(Test);
+            counter.StartCountDown();
            
             await UserAccountHelper.LoadAccountListAsync();
-            Frame.Navigate(typeof(UserSelection));
+
+            //是否从UserSelection导航过来的页面？
+
+            if(_isExistingAccount)
+                Frame.Navigate(typeof(UserSelection));
         }
 
         private void PassportSignInButton_Click(object sender, RoutedEventArgs e)
