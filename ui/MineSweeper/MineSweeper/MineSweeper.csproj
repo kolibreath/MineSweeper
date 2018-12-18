@@ -153,10 +153,19 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\begin.mp3" />
+    <Content Include="Assets\click-1.mp3" />
+    <Content Include="Assets\fail-1.mp3" />
+    <Content Include="Assets\fail-2.mp3" />
+    <Content Include="Assets\fail-3.mp3" />
+    <Content Include="Assets\game.mp3" />
+    <Content Include="Assets\message-1.mp3" />
     <Content Include="Assets\SplashScreen.scale-100.png" />
     <Content Include="Assets\SplashScreen.scale-125.png" />
     <Content Include="Assets\SplashScreen.scale-150.png" />
     <Content Include="Assets\SplashScreen.scale-400.png" />
+    <Content Include="Assets\victory-1.mp3" />
+    <Content Include="Assets\victory-2.mp3" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -15,6 +16,9 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Windows.Media.Playback;
+using Windows.Media.Core;
+using Windows.Storage;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -59,16 +63,23 @@ namespace MineSweeper.Views
 
         private async void  InitAccounts(object sender, RoutedEventArgs e)
         {
-
-            TimerCounter counter = new TimerCounter(Test);
-            counter.StartCountDown();
+            StorageFolder Folder = Windows.ApplicationModel.Package.Current.InstalledLocation;
+            Folder = await Folder.GetFolderAsync("Assets");
+            StorageFile sf = await Folder.GetFileAsync("begin.mp3");
+            var PlayMusic = new MediaElement();
+            PlayMusic.AudioCategory = AudioCategory.Media;
+            PlayMusic.SetSource(await sf.OpenAsync(FileAccessMode.Read), sf.ContentType);
+            PlayMusic.Play();
            
+
+
             await UserAccountHelper.LoadAccountListAsync();
 
             //是否从UserSelection导航过来的页面？
 
             if(_isExistingAccount)
                 Frame.Navigate(typeof(UserSelection));
+           
         }
 
         private void PassportSignInButton_Click(object sender, RoutedEventArgs e)

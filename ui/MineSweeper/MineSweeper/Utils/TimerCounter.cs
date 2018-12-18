@@ -14,15 +14,9 @@ namespace MineSweeper.Utils
         /// 创建TimerCounter 的实例
         /// TimerCounter counter = new TimerCounter(textBlock);
         /// 
-        ///   开始计时
-        ///   counter.StartCountDown();
-        ///     
-        ///    获取⏲开始流逝的时间
-        ///    counter.GetEllapsedTime();
-        ///    
-        ///  在Grid中使用一个TextBlock之类的展示控件展示
-        ///  
-        ///  只要传入一个TextBlock类就可以
+        ///  展示在需要的TextBlock上
+        ///   TimerCounter counter = new TimerCounter(Test);
+        ///  counter.StartCountDown();
         /// </summary>
         int Count = 0;
 
