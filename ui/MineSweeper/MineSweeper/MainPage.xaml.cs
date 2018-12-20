@@ -36,6 +36,10 @@ namespace MineSweeper
 
         private IService service;
         private List<Player> TopPlayers;
+
+        private MediaPlayback playback;
+        private MediaElement element;
+
         public MainPage()
         {
             this.InitializeComponent();
@@ -48,8 +52,9 @@ namespace MineSweeper
         private async void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
             //开始播放背景音乐
-            MediaPlayback playback = new MediaPlayback("begin.mp3");
-            MediaElement element = await playback.InitPlaybackSource();
+            playback = new MediaPlayback("begin.mp3");
+            element = await playback.InitPlaybackSource();
+
             element.Play();
             //完成之后循环播放
             element.MediaEnded += delegate
@@ -58,6 +63,7 @@ namespace MineSweeper
                 element.Play();
             };
 
+         
             TopPlayers = await service.GetTopPlayers() ;
             PlayerListView.ItemsSource = TopPlayers;
 
@@ -74,20 +80,7 @@ namespace MineSweeper
         }
 
 
-        private void Normal_Stage_PointerPressed(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(Miner), null);
-        }
-
-        private void Medium_Stage_PointerPressed(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
-        {
-
-        }
-
-        private void Hard_Stage_PointerPressed(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
-        {
-
-        }
+     
 
 
 
@@ -163,6 +156,21 @@ namespace MineSweeper
             {
                 DialogCreator.CreateDialog("挑战失败！","网络错误，挑战失败");
             }
+        }
+
+        private void Normal_Stage_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(Miner), null);
+        }
+
+        private void Medium_Stage_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Hard_Stage_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

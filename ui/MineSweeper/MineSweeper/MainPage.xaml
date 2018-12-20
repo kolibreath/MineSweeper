@@ -54,18 +54,22 @@
             <StackPanel
                 Background="SteelBlue"
                 HorizontalAlignment="Center"
-                 Width="300" Height="600" Margin="0,0,0,0" VerticalAlignment="Top" >
-                <TextBox
+                 Width="300" Height="300">
+                
+                <Button
+                    Width="300"
+                    Height="300"
                     x:Name="Normal_Stage"
-                    Text="Normal"
                     Foreground="Black"
-                    PointerPressed="Normal_Stage_PointerPressed"
-                    FontSize="50" Height="595" Margin="0,0,0,0">
-                    <TextBox.Background>
-                        <ImageBrush
-                            ImageSource="Assets/easy.jpg"/>
-                    </TextBox.Background>
-                </TextBox>
+                    
+                    FontSize="50"  Click="Normal_Stage_Click">
+                    <StackPanel>
+                        <Image Source="Assets/easy.jpg" 
+                               Width="300"
+                               Height="300"/>
+                    </StackPanel>
+
+                </Button>
             </StackPanel>
             <StackPanel
                 Orientation="Vertical"
@@ -74,27 +78,31 @@
                  Width="300" Height="700" >
                 <StackPanel 
                     Width="300" Height="300">
-                    <TextBox
+                    <Button
                         Name="Medium_Stage"
-                        PointerPressed="Medium_Stage_PointerPressed"
+                        Click="Medium_Stage_Click"
                     Width="300" Height="300">
-                        <TextBox.Background>
-                            <ImageBrush ImageSource="Assets/medium.jpg"/>
-                        </TextBox.Background>
-                    </TextBox>
+                        <StackPanel>
+                            <Image Source="Assets/medium.jpg" 
+                               Width="300"
+                               Height="300"/>
+                        </StackPanel>
+                    </Button>
                 </StackPanel>
 
                 <StackPanel           
                     Background="AliceBlue"
                     Width="300" Height="300">
-                    <TextBox
+                    <Button
                         x:Name="Hard_Stage"
-                        PointerPressed="Hard_Stage_PointerPressed"
+                        Click=" Hard_Stage_Click"
                     Width="300" Height="300">
-                        <TextBox.Background>
-                            <ImageBrush ImageSource="Assets/hard.jpg"/>
-                        </TextBox.Background>
-                    </TextBox>
+                        <StackPanel>
+                            <Image Source="Assets/hard.jpg" 
+                               Width="300"
+                               Height="300"/>
+                        </StackPanel>
+                    </Button>
                 </StackPanel>
             </StackPanel>
         </StackPanel>

@@ -68,8 +68,8 @@ namespace MineSweeper.Views
 
             //是否从UserSelection导航过来的页面？
 
-            if(_isExistingAccount)
-                Frame.Navigate(typeof(UserSelection));
+           
+            Frame.Navigate(typeof(UserSelection));
            
         }
 
