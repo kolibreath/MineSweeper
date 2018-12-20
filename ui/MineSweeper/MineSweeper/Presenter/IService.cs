@@ -131,7 +131,7 @@ namespace MineSweeper.Presenter
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        async Task<bool> GetStatus(UserLogin user)
+        public async Task<bool> GetStatus(UserLogin user)
         {
             var requestApi =  api + "status/";
             //要根据请求的过程重建这个地雷阵

@@ -63,15 +63,6 @@ namespace MineSweeper.Views
 
         private async void  InitAccounts(object sender, RoutedEventArgs e)
         {
-            StorageFolder Folder = Windows.ApplicationModel.Package.Current.InstalledLocation;
-            Folder = await Folder.GetFolderAsync("Assets");
-            StorageFile sf = await Folder.GetFileAsync("begin.mp3");
-            var PlayMusic = new MediaElement();
-            PlayMusic.AudioCategory = AudioCategory.Media;
-            PlayMusic.SetSource(await sf.OpenAsync(FileAccessMode.Read), sf.ContentType);
-            PlayMusic.Play();
-           
-
 
             await UserAccountHelper.LoadAccountListAsync();
 
@@ -114,7 +105,7 @@ namespace MineSweeper.Views
                     UserAccountHelper.SaveAccountListAsync();
                 }
                 Debug.WriteLine("the size of the list" + UserAccountHelper.UserAccounts.Count);
-                Frame.Navigate(typeof(MainPage), null);
+                Frame.Navigate(typeof(MainPage), user);
             }
             else
                 DialogCreator.CreateDialog("登陆失败",

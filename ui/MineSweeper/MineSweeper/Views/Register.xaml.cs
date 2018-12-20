@@ -48,7 +48,7 @@ namespace MineSweeper.Views
             }
             else
             {
-                DialogCreator.CreateDialog("登录失败", "请重新登录");
+                DialogCreator.CreateDialog("注册失败", "请重新注册");
             }
             //todo 注册到服务器
         }

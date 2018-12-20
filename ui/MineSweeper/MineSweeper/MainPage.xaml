@@ -15,7 +15,7 @@
                 <ImageBrush ImageSource="assets/1.jpg"/>
             </Ellipse.Fill>
         </Ellipse>
-        
+
         <ListView
             IsItemClickEnabled="True"
             ItemClick="PlayerListView_ItemClick"
@@ -43,7 +43,7 @@
                 </DataTemplate>
 
             </ListView.ItemTemplate>
-           
+
         </ListView>
         <StackPanel 
                 Orientation="Horizontal"
@@ -55,15 +55,17 @@
                 Background="SteelBlue"
                 HorizontalAlignment="Center"
                  Width="300" Height="600" Margin="0,0,0,0" VerticalAlignment="Top" >
-                <TextBlock 
+                <TextBox
                     x:Name="Normal_Stage"
                     Text="Normal"
                     Foreground="Black"
                     PointerPressed="Normal_Stage_PointerPressed"
-                    FontSize="50"
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Center"
-                    Width="Auto" Height="Auto" Margin="0,300,0,0"/>
+                    FontSize="50" Height="595" Margin="0,0,0,0">
+                    <TextBox.Background>
+                        <ImageBrush
+                            ImageSource="Assets/easy.jpg"/>
+                    </TextBox.Background>
+                </TextBox>
             </StackPanel>
             <StackPanel
                 Orientation="Vertical"
@@ -72,21 +74,27 @@
                  Width="300" Height="700" >
                 <StackPanel 
                     Width="300" Height="300">
-                    <TextBlock
-                        x:Name="Medium_Stage"
+                    <TextBox
+                        Name="Medium_Stage"
                         PointerPressed="Medium_Stage_PointerPressed"
                     Width="300" Height="300">
-                    </TextBlock>
+                        <TextBox.Background>
+                            <ImageBrush ImageSource="Assets/medium.jpg"/>
+                        </TextBox.Background>
+                    </TextBox>
                 </StackPanel>
 
                 <StackPanel           
                     Background="AliceBlue"
                     Width="300" Height="300">
-                    <TextBlock 
+                    <TextBox
                         x:Name="Hard_Stage"
                         PointerPressed="Hard_Stage_PointerPressed"
                     Width="300" Height="300">
-                    </TextBlock>
+                        <TextBox.Background>
+                            <ImageBrush ImageSource="Assets/hard.jpg"/>
+                        </TextBox.Background>
+                    </TextBox>
                 </StackPanel>
             </StackPanel>
         </StackPanel>

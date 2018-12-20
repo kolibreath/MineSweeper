@@ -8,6 +8,8 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using System;
 using System.Diagnostics;
+using MineSweeper.Utils;
+using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -45,18 +47,36 @@ namespace MineSweeper
         //todo test will this works???
         private async void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
-          
+            //开始播放背景音乐
+            MediaPlayback playback = new MediaPlayback("begin.mp3");
+            MediaElement element = await playback.InitPlaybackSource();
+            element.Play();
+            //完成之后循环播放
+            element.MediaEnded += delegate
+            {
+                element.Position = TimeSpan.Zero;
+                element.Play();
+            };
+
             TopPlayers = await service.GetTopPlayers() ;
             PlayerListView.ItemsSource = TopPlayers;
+
+            UserLogin userlogin = new UserLogin();
+         //   if(await service.GetStatus(userlogin))
             Debug.WriteLine("loaded?");
 
         }
 
-    
-        //
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+          
+        }
+
+
         private void Normal_Stage_PointerPressed(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
         {
-
+            Frame.Navigate(typeof(Miner), null);
         }
 
         private void Medium_Stage_PointerPressed(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
@@ -69,6 +89,9 @@ namespace MineSweeper
 
         }
 
+
+
+        //挑战玩家的点击事件！
         private void PlayerListView_ItemClick(object sender, ItemClickEventArgs e)
         {
             Player  clickItem = e.ClickedItem as Player;
