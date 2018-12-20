@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Media.Core;
+using Windows.Media.Playback;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 
@@ -31,14 +33,15 @@ namespace MineSweeper.Utils
          
         }
 
-        public  async Task<MediaElement> InitPlaybackSource()
+        public  async Task<MediaPlayer> InitPlaybackSource()
         {
             Windows.Storage.StorageFolder Folder = Windows.ApplicationModel.Package.Current.InstalledLocation;
             Folder = await Folder.GetFolderAsync("Assets");
             Windows.Storage.StorageFile sf = await Folder.GetFileAsync(musicName);
-            var PlayMusic = new MediaElement();
-            PlayMusic.AudioCategory = AudioCategory.Media;
-            PlayMusic.SetSource(await sf.OpenAsync(Windows.Storage.FileAccessMode.Read), sf.ContentType);
+
+
+             MediaPlayer PlayMusic = new MediaPlayer();
+            PlayMusic.Source = MediaSource.CreateFromUri(new Uri("ms-appx:///Assets/"+musicName));
 
             return PlayMusic;
         }

@@ -10,6 +10,7 @@ using System;
 using System.Diagnostics;
 using MineSweeper.Utils;
 using Windows.UI.Xaml.Navigation;
+using Windows.Media.Playback;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -38,7 +39,7 @@ namespace MineSweeper
         private List<Player> TopPlayers;
 
         private MediaPlayback playback;
-        private MediaElement element;
+        private MediaPlayer element;
 
         public MainPage()
         {
@@ -57,8 +58,12 @@ namespace MineSweeper
 
             element.Play();
             //完成之后循环播放
+          
             element.MediaEnded += delegate
             {
+                Debug.WriteLine("fuck end");
+                //MediaPlayback playback2 = new MediaPlayback("begin.mp3");
+                //element = await playback2.InitPlaybackSource();
                 element.Position = TimeSpan.Zero;
                 element.Play();
             };
