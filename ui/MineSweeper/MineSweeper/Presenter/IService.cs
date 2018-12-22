@@ -135,7 +135,7 @@ namespace MineSweeper.Presenter
         {
             var requestApi =  api + "status/";
             //要根据请求的过程重建这个地雷阵
-            ChallengeMessage message = await requestApi.PostJsonAsync(user).ReceiveJson<ChallengeMessage>();
+            ChallengeMessage message = await requestApi.GetJsonAsync<ChallengeMessage>();
 
             if (message.Code == 200)
                 return true;

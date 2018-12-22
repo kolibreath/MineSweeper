@@ -38,8 +38,7 @@ namespace MineSweeper
         private IService service;
         private List<Player> TopPlayers;
 
-        private MediaPlayback playback;
-        private MediaPlayer element;
+        private MediaPlayer player;
 
         public MainPage()
         {
@@ -52,29 +51,13 @@ namespace MineSweeper
         //todo test will this works???
         private async void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
-            //开始播放背景音乐
-            playback = new MediaPlayback("begin.mp3");
-            element = await playback.InitPlaybackSource();
-
-            element.Play();
-            //完成之后循环播放
-          
-            element.MediaEnded += delegate
-            {
-                Debug.WriteLine("fuck end");
-                //MediaPlayback playback2 = new MediaPlayback("begin.mp3");
-                //element = await playback2.InitPlaybackSource();
-                element.Position = TimeSpan.Zero;
-                element.Play();
-            };
-
+            player = await MediaPlayback.Welcome(false);
          
             TopPlayers = await service.GetTopPlayers() ;
             PlayerListView.ItemsSource = TopPlayers;
 
             UserLogin userlogin = new UserLogin();
          //   if(await service.GetStatus(userlogin))
-            Debug.WriteLine("loaded?");
 
         }
 
@@ -163,19 +146,21 @@ namespace MineSweeper
             }
         }
 
-        private void Normal_Stage_Click(object sender, RoutedEventArgs e)
+        private async void Normal_Stage_Click(object sender, RoutedEventArgs e)
         {
+            await MediaPlayback.MinePanelClick();
             Frame.Navigate(typeof(Miner), null);
+            MediaPlayback.StopPlay(player);
         }
 
-        private void Medium_Stage_Click(object sender, RoutedEventArgs e)
+        private async void Medium_Stage_Click(object sender, RoutedEventArgs e)
         {
-
+            await MediaPlayback.MinePanelClick();
         }
 
-        private void Hard_Stage_Click(object sender, RoutedEventArgs e)
+        private async void Hard_Stage_Click(object sender, RoutedEventArgs e)
         {
-
+            await MediaPlayback.MinePanelClick();
         }
     }
 }
