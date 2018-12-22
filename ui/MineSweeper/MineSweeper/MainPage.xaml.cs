@@ -160,7 +160,10 @@ namespace MineSweeper
 
         private void Normal_Stage_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(Miner), null);
+            var parameters = new MinerPageParams();
+            parameters.Row = 8;
+            parameters.Column = 8;
+            Frame.Navigate(typeof(Miner), parameters);
         }
 
         private void Medium_Stage_Click(object sender, RoutedEventArgs e)
