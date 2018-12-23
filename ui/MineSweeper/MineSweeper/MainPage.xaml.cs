@@ -163,6 +163,7 @@ namespace MineSweeper
             var parameters = new MinerPageParams();
             parameters.Row = 8;
             parameters.Column = 8;
+            parameters.Bombs = 10;
             Frame.Navigate(typeof(Miner), parameters);
         }
 

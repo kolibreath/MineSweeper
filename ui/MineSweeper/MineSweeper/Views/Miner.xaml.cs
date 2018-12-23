@@ -1,20 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using Windows.Media.Playback;
 using MineSweeper.Utils;
+using MineSweeper.Presenter;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -32,12 +23,14 @@ namespace MineSweeper.Views
     {
         const string bstr = "";
         const string cstr = "";
-        int Cnum = 16;
-        int Rnum = 16;
+        int Cnum = 8;
+        int Rnum = 8;
+        int Bombnum = 10;
         ColumnDefinition[] cdefs;
         RowDefinition[] rdefs ;
         Button[,] buttons;
-        int[,] bombs;
+        
+        MineGenerator MG;
 
         public Miner()
         {
@@ -51,17 +44,21 @@ namespace MineSweeper.Views
             var parameters = (MinerPageParams)e.Parameter;
             Cnum = parameters.Column;
             Rnum = parameters.Row;
+            Bombnum = parameters.Bombs;
             cdefs = new ColumnDefinition[Cnum];
             rdefs = new RowDefinition[Rnum];
             buttons = new Button[Cnum, Rnum];
-            bombs = new int[Cnum, Rnum];
+            // -1代表炸弹，数字代表无炸弹，数字个数为上下左右的炸弹数目;
         }
 
         
         private void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
             GridInit();
-            BombInit();
+            // MG.Field为炸弹分布
+            // MG.Panel为数字分布
+
+            MG = new MineGenerator(Rnum, Cnum, Bombnum);
             ButtonInit();
 
             // TimeCounter counter1 :记录使用了多长时间
@@ -71,7 +68,6 @@ namespace MineSweeper.Views
             ColumnDefinition[] cdefs = new ColumnDefinition[Cnum];
             RowDefinition[] rdefs = new RowDefinition[Rnum];
             Button[,] buttons = new Button[Cnum, Rnum];
-            bombs = new int[Cnum, Rnum];
         }
 
         private async void Button_Click(object sender, RoutedEventArgs e)
@@ -84,7 +80,7 @@ namespace MineSweeper.Views
             var column = Grid.GetColumn(b);
             var row = Grid.GetRow(b);
 
-            if (bombs[column, row] == 1)
+            if(MG.Field[column, row] == -1)
             {
                 b.Background = new SolidColorBrush(Color.FromArgb(255, 236, 103, 98));
                 MediaPlayback playbackfail = new MediaPlayback("fail-3.mp3");
@@ -94,22 +90,9 @@ namespace MineSweeper.Views
             }
             else
             {
-                // need a bfs
-                // first is row second is column
-                for (int i = column - 1; i <= column + 1; i += 1)
-                {
-                    for (int j = row - 1; j <= row + 1; j += 1)
-                    {
-                        if (i < Cnum && j < Rnum && i >= 0 && j >= 0)
-                        {
-                            if (bombs[j, i] != 1)
-                            {
-                                Button btemp = buttons[j, i];
-                                btemp.Background = new SolidColorBrush(Color.FromArgb(255, 77, 153, 79));
-                            }
-                        }
-                    }
-                }
+                b.Background = new SolidColorBrush(Color.FromArgb(255, 77, 153, 79));
+                b.Content = MG.Panel[column, row];
+                
             }
         }
 
@@ -121,26 +104,6 @@ namespace MineSweeper.Views
             grid.HorizontalAlignment = HorizontalAlignment.Center;
             grid.VerticalAlignment = VerticalAlignment.Center;
             grid.Background = new SolidColorBrush(Windows.UI.Colors.Gray);
-            //double clen = Width / Cnum;
-            //double rlen = Height / Rnum;
-        }
-
-        private void BombInit()
-        {
-            for (int i = 0; i < Cnum; i++)
-            {
-                for (int j = 0; j < Rnum; j++)
-                {
-                    if (i == 3 && j == 3)
-                    {
-                        bombs[i, j] = 1;
-                    }
-                    else
-                    {
-                        bombs[i, j] = 0;
-                    }
-                }
-            }
         }
 
         private void ButtonInit()
