@@ -23,6 +23,7 @@ namespace MineSweeper.Views
     {
         const string bstr = "";
         const string cstr = "";
+        int FirstClickFlag = 1;
         int Cnum = 8;
         int Rnum = 8;
         int Bombnum = 10;
@@ -57,7 +58,6 @@ namespace MineSweeper.Views
             GridInit();
             // MG.Field为炸弹分布
             // MG.Panel为数字分布
-
             MG = new MineGenerator(Rnum, Cnum, Bombnum);
             ButtonInit();
 
@@ -72,23 +72,56 @@ namespace MineSweeper.Views
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-          
             Button b = (Button)sender;
             var column = Grid.GetColumn(b);
             var row = Grid.GetRow(b);
 
-            if(MG.Field[column, row] == -1)
+            if (FirstClickFlag == 1 && MG.Field[row, column] != -1)
             {
-                b.Background = new SolidColorBrush(Color.FromArgb(255, 236, 103, 98));
-                await MediaPlayback.GameFailed();
-                Frame.Navigate(typeof(MainPage), null);
+                MG.InitArea(5, 0, column, row, 30);
+                for(int i = 0; i < Cnum; i++)
+                {
+                    for(int j = 0; j < Rnum; j++)
+                    {
+                        // 9 代表open
+                        if(MG.Record[i, j] == 9 && MG.Field[i, j] != -1)
+                        {
+                            buttons[i, j].Background = new SolidColorBrush(Color.FromArgb(255, 77, 153, 79));
+                            buttons[i, j].Content = MG.Panel[i, j];
+                        }
+                        
+                    }
+                }
+                if(MG.Field[row, column] != -1)
+                {
+                    buttons[row, column].Background = new SolidColorBrush(Color.FromArgb(255, 77, 153, 79));
+                    buttons[row, column].Content = MG.Panel[row, column];
+                }
+                FirstClickFlag = 0;
             }
             else
             {
-                b.Background = new SolidColorBrush(Color.FromArgb(255, 77, 153, 79));
-                b.Content = MG.Panel[column, row];
-                
+                if (MG.Field[column, row] == -1)
+                {
+                    b.Background = new SolidColorBrush(Color.FromArgb(255, 236, 103, 98));
+                    await MediaPlayback.GameFailed();
+                    Frame.Navigate(typeof(MainPage), null);
+                }
+                else
+                {
+                    b.Background = new SolidColorBrush(Color.FromArgb(255, 77, 153, 79));
+                    b.Content = MG.Panel[column, row];
+                    MG.OpenCount += 1;
+                }
+
+                if (MG.OpenCount == Cnum * Rnum - Bombnum)
+                {
+                    /*success*/
+                    Frame.Navigate(typeof(MainPage), null);
+                }
             }
+            
+
         }
 
         private void GridInit()

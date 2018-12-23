@@ -51,8 +51,8 @@ namespace MineSweeper.Views
         private void UserSelection_Loaded(object sender, RoutedEventArgs e)
         {
             //没有用户的时候自动导航到login
-            if (UserAccountHelper.UserAccounts.Count == 0)
-                Frame.Navigate(typeof(Login));
+            if (UserAccountHelper.UserAccounts.Count == 0) 
+             Frame.Navigate(typeof(Login));
             else
             {
                 UserListView.ItemsSource = UserAccountHelper.UserAccounts;

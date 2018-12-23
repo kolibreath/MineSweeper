@@ -13,6 +13,7 @@ namespace MineSweeper.Presenter
         int Row = 9;
         int Column = 9;
 
+        public int OpenCount = 0;
         //表示有没有初始化成功
         public static bool _is_intialized = false;
         //如果field 内部是-1的话 就表示一个炸弹
@@ -90,15 +91,16 @@ namespace MineSweeper.Presenter
             //全局最小值
             current++;
 
+            OpenCount += 1;
             Record[x, y] = OPEN;
 
             int[] dy = { -1, 0, 1 };
             int[] dx = { -1, 0, 1 };
 
 
-            for(int i = 0;i < dfs; i++)
+            for(int i = 0;i < dx.Length; i++)
             {
-                for(int j = 0; j< dfs; j++)
+                for(int j = 0; j<dy.Length; j++)
                 {
                     int nextX = x + dx[i];
                     int nextY = y + dy[j];
