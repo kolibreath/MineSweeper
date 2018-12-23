@@ -49,6 +49,7 @@ namespace MineSweeper.Utils
             Windows.Storage.StorageFile sf = await Folder.GetFileAsync(musicName);
 
 
+
              MediaPlayer PlayMusic = new MediaPlayer();
             PlayMusic.Source = MediaSource.CreateFromUri(new Uri("ms-appx:///Assets/"+musicName));
 
