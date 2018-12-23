@@ -13,6 +13,8 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Windows.Media.Playback;
+using MineSweeper.Utils;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -30,13 +32,12 @@ namespace MineSweeper.Views
     {
         const string bstr = "";
         const string cstr = "";
-        const int Cnum = 16;
-        const int Rnum = 16;
-        static ColumnDefinition[] cdefs = new ColumnDefinition[Cnum];
-        static RowDefinition[] rdefs = new RowDefinition[Rnum];
-        static Button[,] buttons = new Button[Cnum, Rnum];
-        static int[,] bombs = new int[Cnum, Rnum];
-
+        int Cnum = 16;
+        int Rnum = 16;
+        ColumnDefinition[] cdefs;
+        RowDefinition[] rdefs ;
+        Button[,] buttons;
+        int[,] bombs;
 
         public Miner()
         {
@@ -44,15 +45,38 @@ namespace MineSweeper.Views
             Loaded += MainPage_Loaded;
         }
 
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            var parameters = (MinerPageParams)e.Parameter;
+            Cnum = parameters.Column;
+            Rnum = parameters.Row;
+            cdefs = new ColumnDefinition[Cnum];
+            rdefs = new RowDefinition[Rnum];
+            buttons = new Button[Cnum, Rnum];
+            bombs = new int[Cnum, Rnum];
+        }
+
+        
         private void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
             GridInit();
             BombInit();
             ButtonInit();
+
+            // TimeCounter counter1 :记录使用了多长时间
+            TimerCounter counter1 = new TimerCounter(timetext);
+            counter1.StartCountDown();
+
+            ColumnDefinition[] cdefs = new ColumnDefinition[Cnum];
+            RowDefinition[] rdefs = new RowDefinition[Rnum];
+            Button[,] buttons = new Button[Cnum, Rnum];
+            bombs = new int[Cnum, Rnum];
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private async void Button_Click(object sender, RoutedEventArgs e)
         {
+          
             Button b = (Button)sender;
             var column = Grid.GetColumn(b);
             var row = Grid.GetRow(b);
@@ -60,6 +84,8 @@ namespace MineSweeper.Views
             if (bombs[column, row] == 1)
             {
                 b.Background = new SolidColorBrush(Color.FromArgb(255, 236, 103, 98));
+                await MediaPlayback.GameFailed();
+                Frame.Navigate(typeof(MainPage), null);
             }
             else
             {
@@ -118,21 +144,21 @@ namespace MineSweeper.Views
             {
                 for (int j = 0; j < Rnum; j += 1)
                 {
-                    Button button = new Button();
-                    button.Content = bstr;
-                    button.Margin = new Thickness(2, 2, 2, 2);
-                    button.HorizontalAlignment = HorizontalAlignment.Stretch;
-                    button.VerticalAlignment = VerticalAlignment.Stretch;
-                    button.Background = new SolidColorBrush(Windows.UI.Colors.Gray);
-                    button.BorderBrush = new SolidColorBrush(Windows.UI.Colors.Black);
-                    button.BorderThickness = new Thickness(1, 1, 1, 1);
+                    buttons[i, j] = new Button();
+                    buttons[i, j].Content = bstr;
+                    buttons[i, j].Margin = new Thickness(2, 2, 2, 2);
+                    buttons[i, j].HorizontalAlignment = HorizontalAlignment.Stretch;
+                    buttons[i, j].VerticalAlignment = VerticalAlignment.Stretch;
+                    buttons[i, j].Background = new SolidColorBrush(Windows.UI.Colors.Gray);
+                    buttons[i, j].BorderBrush = new SolidColorBrush(Windows.UI.Colors.Black);
+                    buttons[i, j].BorderThickness = new Thickness(1, 1, 1, 1);
 
-                    Grid.SetRow(button, i);
-                    Grid.SetColumn(button, j);
-                    grid.Children.Add(button);
-                    button.Click += Button_Click;
-                    buttons[i, j] = button;
-                    buttons[i, j].Width = buttons[i, j].Height;
+                    Grid.SetRow(buttons[i, j], i);
+                    Grid.SetColumn(buttons[i, j], j);
+                    grid.Children.Add(buttons[i, j]);
+                    buttons[i, j].Click += Button_Click;
+                    //buttons[i, j] = button;
+                    //buttons[i, j].Width = buttons[i, j].Height;
                 }
             }
             for (int i = 0; i < Cnum; i += 1)
@@ -146,7 +172,10 @@ namespace MineSweeper.Views
                 rdefs[i] = new RowDefinition();
                 grid.RowDefinitions.Add(rdefs[i]);
             }
+            Grid.SetColumn(timetext, 0);
+            Grid.SetRow(timetext, 0);
         }
+
     }
 }
 

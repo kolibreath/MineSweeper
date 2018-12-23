@@ -142,7 +142,28 @@ namespace MineSweeper.Presenter
             else
                 return false;
         }
- 
-      
+
+
+        /// <summary>
+        /// 上传用户的分数
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="score"></param>
+        /// <returns></returns>
+        public async Task<bool> PostScore(int userId,int score)
+        {
+            var requestApi = api + "score/";
+            //要根据请求的过程重建这个地雷阵
+            UserScore userscore = new UserScore(userId, score);
+            Message message = await requestApi.PostJsonAsync(userscore).ReceiveJson<Message>();
+
+            if (message.Code == 200)
+                return true;
+            else
+                return false;
+        }
     }
+
+
+  
 }

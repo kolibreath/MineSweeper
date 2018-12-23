@@ -148,9 +148,10 @@ namespace MineSweeper
 
         private async void Normal_Stage_Click(object sender, RoutedEventArgs e)
         {
-            await MediaPlayback.MinePanelClick();
-            Frame.Navigate(typeof(Miner), null);
-            MediaPlayback.StopPlay(player);
+            var parameters = new MinerPageParams();
+            parameters.Row = 8;
+            parameters.Column = 8;
+            Frame.Navigate(typeof(Miner), parameters);
         }
 
         private async void Medium_Stage_Click(object sender, RoutedEventArgs e)

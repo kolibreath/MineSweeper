@@ -101,6 +101,7 @@ namespace MineSweeper.Views
             {
                 if (!_isExistingAccount)
                 {
+                    
                     UserAccountHelper.AddAccount(user);
                     UserAccountHelper.SaveAccountListAsync();
                 }

@@ -12,6 +12,9 @@ namespace MineSweeper.Utils
 {
     static class UserAccountHelper
     {
+        /// <summary>
+        /// USER_ID将会在登录成功之后保存并且更新
+        /// </summary>
         public static int USER_ID = 1;
         private const string USER_ACCOUNT_LIST_FILE_NAME =
             "accountlist.txt";
