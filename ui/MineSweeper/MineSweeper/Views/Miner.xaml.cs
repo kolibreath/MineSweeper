@@ -6,6 +6,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using MineSweeper.Utils;
 using MineSweeper.Presenter;
+using System.Diagnostics;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -59,6 +60,31 @@ namespace MineSweeper.Views
             // MG.Field为炸弹分布
             // MG.Panel为数字分布
             MG = new MineGenerator(Rnum, Cnum, Bombnum);
+
+            Debug.WriteLine("miner panel");
+           for(int i = 0; i < Rnum; i++)
+            {
+                string line = "";
+                for(int j = 0;j< Cnum; j++)
+                {
+                    line += MG.Panel[i,j] + " ";
+                }
+                Debug.WriteLine(line);
+            }
+
+            Debug.WriteLine("miner field");
+            for (int i = 0; i < Rnum; i++)
+            {
+                string line = "";
+                for (int j = 0; j < Cnum; j++)
+                {
+                    line += MG.Field[i, j] + " ";
+                }
+                Debug.WriteLine(line);
+            }
+
+
+            Debug.WriteLine("");
             ButtonInit();
 
             // TimeCounter counter1 :记录使用了多长时间
@@ -78,7 +104,7 @@ namespace MineSweeper.Views
 
             if (FirstClickFlag == 1 && MG.Field[row, column] != -1)
             {
-                MG.InitArea(5, 0, column, row, 30);
+                MG.InitArea(5, 0, column, row, 60);
                 for(int i = 0; i < Cnum; i++)
                 {
                     for(int j = 0; j < Rnum; j++)

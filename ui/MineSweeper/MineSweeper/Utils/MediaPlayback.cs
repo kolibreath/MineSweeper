@@ -50,8 +50,10 @@ namespace MineSweeper.Utils
 
 
 
-             MediaPlayer PlayMusic = new MediaPlayer();
-            PlayMusic.Source = MediaSource.CreateFromUri(new Uri("ms-appx:///Assets/"+musicName));
+            MediaPlayer PlayMusic = new MediaPlayer
+            {
+                Source = MediaSource.CreateFromUri(new Uri("ms-appx:///Assets/" + musicName))
+            };
 
             return PlayMusic;
         }
