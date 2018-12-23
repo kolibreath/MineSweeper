@@ -30,7 +30,7 @@ namespace MineSweeper.Utils
         public void StartCountDown()
         {
             //一旦创建出来就会执行时间记录
-            timer = new System.Threading.Timer(TimerAction, null, TimeSpan.FromSeconds(2), TimeSpan.FromSeconds(1));
+            timer = new System.Threading.Timer(TimerAction, null, TimeSpan.FromSeconds(0), TimeSpan.FromSeconds(1));
          
         }
 
@@ -41,6 +41,10 @@ namespace MineSweeper.Utils
             
         }
 
+        /// <summary>
+        /// 获取一共消耗的时间
+        /// </summary>
+        /// <returns></returns>
         public int GetEllapsedTime()
         {
             return Count;

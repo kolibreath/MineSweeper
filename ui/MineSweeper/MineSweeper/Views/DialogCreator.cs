@@ -11,11 +11,22 @@ namespace MineSweeper.Views
 {
     class DialogCreator
     {
-     
        
+ 
 
-      //  ChallengePlayerEvent(ContentDialog dialog, ContentDialogButtonClickEventArgs e)
-        public static async void CreateDialog(string title, 
+
+        /// <summary>
+        ///  TypedEventHandler<ContentDialog, ContentDialogButtonClickEventArgs> fuck = delegate
+           //  {
+
+        //};
+    /// </summary>
+    /// <param name="title"></param>
+    /// <param name="content"></param>
+    /// <param name="primaryClickEvent"></param>
+    /// <param name="secondaryClickEvent"></param>
+    //  ChallengePlayerEvent(ContentDialog dialog, ContentDialogButtonClickEventArgs e)
+    public static async void CreateDialog(string title, 
             string content, TypedEventHandler<ContentDialog,ContentDialogButtonClickEventArgs> primaryClickEvent = null , 
             TypedEventHandler<ContentDialog, ContentDialogButtonClickEventArgs> secondaryClickEvent = null )
         {
