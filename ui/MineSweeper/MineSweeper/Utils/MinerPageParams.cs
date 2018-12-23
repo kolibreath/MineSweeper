@@ -6,17 +6,19 @@ using System.Threading.Tasks;
 
 namespace MineSweeper.Utils
 {
-    /*
-     作为传递参数的类
-     示例:
-            var parameters = new MinerPageParams();
-            parameters.Row = 8;
-            parameters.Column = 8;
-            Frame.Navigate(typeof(Miner), parameters);
-         */
+    /// <summary>
+    /// 作为传递参数的类
+    ///  示例:
+    ///      var parameters = new MinerPageParams();
+    ///      parameters.Row = 8;
+    ///      parameters.Column = 8;
+    ///      parameters.Bombs = 10;
+    ///      Frame.Navigate(typeof(Miner), parameters);
+    /// </summary>
     class MinerPageParams
     {
         public int Row { get; set; }
         public int Column { get; set; }
+        public int Bombs { get; set; }
     }
 }

@@ -57,29 +57,23 @@ namespace MineSweeper.Presenter
             for(int i = 0;i < Row;i++)
                 for(int j = 0; j< Column; j++)
                 {
-
                     int bombCounter = 0;
-
                     //如果这个点是炸弹的话直接return
                     if (Field[i,j] == -1) continue;
-
                     for(int k = 0; k < xi.Length; k++)
                     {
                         for(int m = 0; m<yi.Length; m++)
                         {
                             if (k == 1 && m == 1)
                                 continue;
-
                             int x = i + xi[k];
                             int y = j + yi[m];
                             if (x == -1 || x == Row || y == -1 || y == Column)
                                 continue;
-
                             if (Field[x, y] == -1)
                                 bombCounter++;
                         }
                     }
-
                     Panel[i, j] = bombCounter;
                 }
 
