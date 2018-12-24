@@ -22,6 +22,7 @@ namespace MineSweeper.Utils
         public int Bombs { get; set; }
         public int OpenButtonNum { get; set; }
         public int OpenButtonDepth { get; set;  }
+        public int HardScore { get; set; }
         
     }
 }

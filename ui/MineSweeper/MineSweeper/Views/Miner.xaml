@@ -9,13 +9,9 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid  >
-        <StackPanel Orientation="Vertical">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock x:Name ="timetext2" HorizontalAlignment="Center" Margin="100,10,10 ,10" Text="TextBlock2" TextWrapping="Wrap" VerticalAlignment="Top" Width="143"/>
-                <TextBlock x:Name ="timetext" HorizontalAlignment="Right"  Text="计时器" TextWrapping="Wrap" VerticalAlignment="Bottom" Height="20" Width="151" Margin="1000,0,0,0"/>
-            </StackPanel>
-            <Grid Name="grid" />
+        <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch">
+            <TextBlock x:Name ="timetext"  Text="计时器" TextWrapping="Wrap" VerticalAlignment="Center" Height="100" FontSize="50"  Margin="200,100,200,100"/>
+            <Grid x:Name="grid" Height="1073" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="0,0,0,0" />
         </StackPanel>
-
     </Grid>
 </Page>

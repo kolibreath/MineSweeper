@@ -18,7 +18,7 @@ namespace MineSweeper.Utils
         ///   TimerCounter counter = new TimerCounter(Test);
         ///  counter.StartCountDown();
         /// </summary>
-        int Count = 0;
+        public int Count = 0;
 
   
         System.Threading.Timer timer;

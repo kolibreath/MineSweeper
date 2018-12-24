@@ -33,6 +33,9 @@ namespace MineSweeper.Views
         int Bombnum = 10;
         int OpenButtonNum = 10;
         int OpenButtonDepth = 5;
+        int InitHardScore = 1000;
+        TimerCounter counter1;
+        IService Service = new IService();
 
         ColumnDefinition[] cdefs;
         RowDefinition[] rdefs ;
@@ -55,14 +58,13 @@ namespace MineSweeper.Views
             Bombnum = parameters.Bombs;
             OpenButtonNum = parameters.OpenButtonNum;
             OpenButtonDepth = parameters.OpenButtonDepth;
+            InitHardScore = parameters.HardScore;
 
             cdefs = new ColumnDefinition[Cnum];
             rdefs = new RowDefinition[Rnum];
             buttons = new Button[Cnum, Rnum];
             // -1代表炸弹，数字代表无炸弹，数字个数为上下左右的炸弹数目;
         }
-
-       
 
         private void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
@@ -73,7 +75,7 @@ namespace MineSweeper.Views
             ButtonInit();
 
             // TimeCounter counter1 :记录使用了多长时间
-            TimerCounter counter1 = new TimerCounter(timetext);
+            counter1 = new TimerCounter(timetext);
             counter1.StartCountDown();
 
             ColumnDefinition[] cdefs = new ColumnDefinition[Cnum];
@@ -93,21 +95,25 @@ namespace MineSweeper.Views
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
             /*四种对话框点击事件*/
-            TypedEventHandler<ContentDialog, ContentDialogButtonClickEventArgs> SuccessTrue = delegate
+            // 成功，上传成绩
+            
+            TypedEventHandler<ContentDialog, ContentDialogButtonClickEventArgs> SuccessTrue = async delegate
             {
+                await Service.PostScore(UserAccountHelper.USER_ID, InitHardScore - counter1.Count);
                 Frame.Navigate(typeof(MainPage), null);
             };
-
+            // 成功，不上传成绩
             TypedEventHandler<ContentDialog, ContentDialogButtonClickEventArgs> SuccessFalse = delegate
             {
                 Frame.Navigate(typeof(MainPage), null);
             };
-
-            TypedEventHandler<ContentDialog, ContentDialogButtonClickEventArgs> FailedTrue = delegate
+            // 失败，上传成绩（设置为负数）
+            TypedEventHandler<ContentDialog, ContentDialogButtonClickEventArgs> FailedTrue = async delegate
             {
+                await Service.PostScore(UserAccountHelper.USER_ID, InitHardScore - counter1.Count - InitHardScore);
                 Frame.Navigate(typeof(MainPage), null);
             };
-
+            // 失败，不上传成绩
             TypedEventHandler<ContentDialog, ContentDialogButtonClickEventArgs> FailedFalse = delegate
             {
                 Frame.Navigate(typeof(MainPage), null);
@@ -163,9 +169,8 @@ namespace MineSweeper.Views
                 {
                     //success 成功  <<<<<<<<<<<<<<<<<<<<<<<<
                     //Frame.Navigate(typeof(MainPage), null);
-                    Debug.WriteLine(MG.OpenCount);
+                                        Debug.WriteLine(MG.OpenCount);
                     Debug.WriteLine((Cnum * Rnum) - Bombnum);
-
                     await MediaPlayback.GameVictory();
                     DialogCreator.CreateDialog("成功", "成功，是否上传成绩？", SuccessTrue, SuccessFalse);
                 }
@@ -217,6 +222,11 @@ namespace MineSweeper.Views
             }
             Grid.SetColumn(timetext, 0);
             Grid.SetRow(timetext, 0);
+        }
+
+        private void Timetext_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }
