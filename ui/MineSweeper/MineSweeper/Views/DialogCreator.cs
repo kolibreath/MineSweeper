@@ -9,7 +9,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace MineSweeper.Views
 {
-    class DialogCreator
+    public class DialogCreator
     {
        
  

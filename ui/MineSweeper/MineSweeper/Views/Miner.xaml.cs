@@ -6,7 +6,9 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using MineSweeper.Utils;
 using MineSweeper.Presenter;
-
+using Windows.Foundation;
+using MineSweeper.Views;
+using System.Diagnostics;
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 //MineSweeper.Views
@@ -52,13 +54,15 @@ namespace MineSweeper.Views
             // -1代表炸弹，数字代表无炸弹，数字个数为上下左右的炸弹数目;
         }
 
-        
+       
+
         private void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
             GridInit();
             // MG.Field为炸弹分布
             // MG.Panel为数字分布
             MG = new MineGenerator(Rnum, Cnum, Bombnum);
+            
             ButtonInit();
 
             // TimeCounter counter1 :记录使用了多长时间
@@ -70,58 +74,95 @@ namespace MineSweeper.Views
             Button[,] buttons = new Button[Cnum, Rnum];
         }
 
+        private async void Miner_RightTapped(object sender, Windows.UI.Xaml.Input.RightTappedRoutedEventArgs e)
+        {
+            var b = (Button)sender;
+            var row = Grid.GetRow(b);
+            var column = Grid.GetColumn(b);
+            await MediaPlayback.MinePanelClick();
+            b.Background = new SolidColorBrush(Color.FromArgb(255, 228, 163, 48));
+        }
+
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
+            /*四种对话框点击事件*/
+            TypedEventHandler<ContentDialog, ContentDialogButtonClickEventArgs> SuccessTrue = delegate
+            {
+                Frame.Navigate(typeof(MainPage), null);
+            };
+
+            TypedEventHandler<ContentDialog, ContentDialogButtonClickEventArgs> SuccessFalse = delegate
+            {
+                Frame.Navigate(typeof(MainPage), null);
+            };
+
+            TypedEventHandler<ContentDialog, ContentDialogButtonClickEventArgs> FailedTrue = delegate
+            {
+                Frame.Navigate(typeof(MainPage), null);
+            };
+
+            TypedEventHandler<ContentDialog, ContentDialogButtonClickEventArgs> FailedFalse = delegate
+            {
+                Frame.Navigate(typeof(MainPage), null);
+            };
+
+            // click声音
+            await MediaPlayback.MinePanelClick();
+
             Button b = (Button)sender;
             var column = Grid.GetColumn(b);
             var row = Grid.GetRow(b);
 
+            //  首次点击
             if (FirstClickFlag == 1 && MG.Field[row, column] != -1)
             {
-                MG.InitArea(5, 0, column, row, 30);
-                for(int i = 0; i < Cnum; i++)
+                MG.InitArea(5, 0, row, column, 30);
+                Debug.WriteLine(MG.OpenCount);
+                for(int i = 0; i < Rnum; i++)
                 {
-                    for(int j = 0; j < Rnum; j++)
+                    for(int j = 0; j < Cnum; j++)
                     {
                         // 9 代表open
-                        if(MG.Record[i, j] == 9 && MG.Field[i, j] != -1)
+                        if(MG.Record[i, j] == 9)
                         {
                             buttons[i, j].Background = new SolidColorBrush(Color.FromArgb(255, 77, 153, 79));
                             buttons[i, j].Content = MG.Panel[i, j];
                         }
-                        
                     }
                 }
-                if(MG.Field[row, column] != -1)
-                {
-                    buttons[row, column].Background = new SolidColorBrush(Color.FromArgb(255, 77, 153, 79));
-                    buttons[row, column].Content = MG.Panel[row, column];
-                }
+                buttons[row, column].Background = new SolidColorBrush(Color.FromArgb(255, 77, 153, 79));
+                buttons[row, column].Content = MG.Panel[row, column];
                 FirstClickFlag = 0;
             }
+            // 第二次之后的点击
             else
             {
-                if (MG.Field[column, row] == -1)
+                if (MG.Field[row, column] == -1)
                 {
+                    // failed 失败 <<<<<<<<<<<<<<<<<<<
                     b.Background = new SolidColorBrush(Color.FromArgb(255, 236, 103, 98));
                     await MediaPlayback.GameFailed();
-                    Frame.Navigate(typeof(MainPage), null);
+                    DialogCreator.CreateDialog("失败", "失败，是否上传成绩?", FailedTrue, FailedFalse);
+ 
+                    //Frame.Navigate(typeof(MainPage), null);
                 }
                 else
                 {
                     b.Background = new SolidColorBrush(Color.FromArgb(255, 77, 153, 79));
-                    b.Content = MG.Panel[column, row];
+                    b.Content = MG.Panel[row, column];
                     MG.OpenCount += 1;
                 }
-
-                if (MG.OpenCount == Cnum * Rnum - Bombnum)
+                if (MG.OpenCount == (Cnum * Rnum) - Bombnum)
                 {
-                    /*success*/
-                    Frame.Navigate(typeof(MainPage), null);
+                    //success 成功  <<<<<<<<<<<<<<<<<<<<<<<<
+                    //Frame.Navigate(typeof(MainPage), null);
+                    Debug.WriteLine(MG.OpenCount);
+                    Debug.WriteLine((Cnum * Rnum) - Bombnum);
+
+                    await MediaPlayback.GameVictory();
+                    DialogCreator.CreateDialog("成功", "成功，是否上传成绩？", SuccessTrue, SuccessFalse);
                 }
             }
-            
-
         }
 
         private void GridInit()
@@ -153,8 +194,7 @@ namespace MineSweeper.Views
                     Grid.SetColumn(buttons[i, j], j);
                     grid.Children.Add(buttons[i, j]);
                     buttons[i, j].Click += Button_Click;
-                    //buttons[i, j] = button;
-                    //buttons[i, j].Width = buttons[i, j].Height;
+                    buttons[i, j].RightTapped += Miner_RightTapped;
                 }
             }
             for (int i = 0; i < Cnum; i += 1)
@@ -171,7 +211,6 @@ namespace MineSweeper.Views
             Grid.SetColumn(timetext, 0);
             Grid.SetRow(timetext, 0);
         }
-
     }
 }
 

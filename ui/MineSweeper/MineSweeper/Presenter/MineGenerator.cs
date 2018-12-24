@@ -90,14 +90,9 @@ namespace MineSweeper.Presenter
 
             //全局最小值
             current++;
-
-            OpenCount += 1;
             Record[x, y] = OPEN;
-
             int[] dy = { -1, 0, 1 };
             int[] dx = { -1, 0, 1 };
-
-
             for(int i = 0;i < dx.Length; i++)
             {
                 for(int j = 0; j<dy.Length; j++)
@@ -111,7 +106,8 @@ namespace MineSweeper.Presenter
                     InitArea(dfs, level + 1, nextX, nextY,max);
                 } 
             }
+            OpenCount = current;
         }
-
+        
     }
 }   

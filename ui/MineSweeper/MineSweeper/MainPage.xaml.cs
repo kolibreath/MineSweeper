@@ -148,6 +148,7 @@ namespace MineSweeper
 
         private async void Normal_Stage_Click(object sender, RoutedEventArgs e)
         {
+            await MediaPlayback.MinePanelClick();
             var parameters = new MinerPageParams();
             parameters.Row = 8;
             parameters.Column = 8;
@@ -158,11 +159,21 @@ namespace MineSweeper
         private async void Medium_Stage_Click(object sender, RoutedEventArgs e)
         {
             await MediaPlayback.MinePanelClick();
+            var parameters = new MinerPageParams();
+            parameters.Row = 12;
+            parameters.Column = 12;
+            parameters.Bombs = 20;
+            Frame.Navigate(typeof(Miner), parameters);
         }
 
         private async void Hard_Stage_Click(object sender, RoutedEventArgs e)
         {
             await MediaPlayback.MinePanelClick();
+            var parameters = new MinerPageParams();
+            parameters.Row = 16;
+            parameters.Column = 16;
+            parameters.Bombs = 40;
+            Frame.Navigate(typeof(Miner), parameters);
         }
     }
 }
