@@ -153,6 +153,8 @@ namespace MineSweeper
             parameters.Row = 8;
             parameters.Column = 8;
             parameters.Bombs = 10;
+            parameters.OpenButtonNum = 20;
+            parameters.OpenButtonDepth = 3;
             Frame.Navigate(typeof(Miner), parameters);
         }
 
@@ -163,6 +165,8 @@ namespace MineSweeper
             parameters.Row = 12;
             parameters.Column = 12;
             parameters.Bombs = 20;
+            parameters.OpenButtonNum = 40;
+            parameters.OpenButtonDepth = 4;
             Frame.Navigate(typeof(Miner), parameters);
         }
 
@@ -173,6 +177,8 @@ namespace MineSweeper
             parameters.Row = 16;
             parameters.Column = 16;
             parameters.Bombs = 40;
+            parameters.OpenButtonNum = 80;
+            parameters.OpenButtonDepth = 5;
             Frame.Navigate(typeof(Miner), parameters);
         }
     }

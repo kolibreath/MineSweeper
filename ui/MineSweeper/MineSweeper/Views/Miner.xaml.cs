@@ -9,6 +9,8 @@ using MineSweeper.Presenter;
 using Windows.Foundation;
 using MineSweeper.Views;
 using System.Diagnostics;
+
+
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 //MineSweeper.Views
@@ -29,6 +31,9 @@ namespace MineSweeper.Views
         int Cnum = 8;
         int Rnum = 8;
         int Bombnum = 10;
+        int OpenButtonNum = 10;
+        int OpenButtonDepth = 5;
+
         ColumnDefinition[] cdefs;
         RowDefinition[] rdefs ;
         Button[,] buttons;
@@ -48,6 +53,9 @@ namespace MineSweeper.Views
             Cnum = parameters.Column;
             Rnum = parameters.Row;
             Bombnum = parameters.Bombs;
+            OpenButtonNum = parameters.OpenButtonNum;
+            OpenButtonDepth = parameters.OpenButtonDepth;
+
             cdefs = new ColumnDefinition[Cnum];
             rdefs = new RowDefinition[Rnum];
             buttons = new Button[Cnum, Rnum];
@@ -62,7 +70,6 @@ namespace MineSweeper.Views
             // MG.Field为炸弹分布
             // MG.Panel为数字分布
             MG = new MineGenerator(Rnum, Cnum, Bombnum);
-            
             ButtonInit();
 
             // TimeCounter counter1 :记录使用了多长时间
@@ -116,7 +123,7 @@ namespace MineSweeper.Views
             //  首次点击
             if (FirstClickFlag == 1 && MG.Field[row, column] != -1)
             {
-                MG.InitArea(5, 0, row, column, 30);
+                MG.InitArea(OpenButtonDepth, 0, row, column, OpenButtonNum);
                 Debug.WriteLine(MG.OpenCount);
                 for(int i = 0; i < Rnum; i++)
                 {
