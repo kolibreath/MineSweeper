@@ -96,6 +96,7 @@ namespace MineSweeper.Views
         {
             /*四种对话框点击事件*/
             // 成功，上传成绩
+            Debug.WriteLine(MG.GetOpenCount());
             
             TypedEventHandler<ContentDialog, ContentDialogButtonClickEventArgs> SuccessTrue = async delegate
             {
@@ -130,7 +131,7 @@ namespace MineSweeper.Views
             if (FirstClickFlag == 1 && MG.Field[row, column] != -1)
             {
                 MG.InitArea(OpenButtonDepth, 0, row, column, OpenButtonNum);
-                Debug.WriteLine(MG.OpenCount);
+                
                 for(int i = 0; i < Rnum; i++)
                 {
                     for(int j = 0; j < Cnum; j++)
@@ -163,13 +164,13 @@ namespace MineSweeper.Views
                 {
                     b.Background = new SolidColorBrush(Color.FromArgb(255, 77, 153, 79));
                     b.Content = MG.Panel[row, column];
-                    MG.OpenCount += 1;
+                    MG.SetOpen(row, column);
                 }
-                if (MG.OpenCount == (Cnum * Rnum) - Bombnum)
+                if (MG.GetOpenCount() == (Cnum * Rnum) - Bombnum)
                 {
                     //success 成功  <<<<<<<<<<<<<<<<<<<<<<<<
                     //Frame.Navigate(typeof(MainPage), null);
-                                        Debug.WriteLine(MG.OpenCount);
+                                     
                     Debug.WriteLine((Cnum * Rnum) - Bombnum);
                     await MediaPlayback.GameVictory();
                     DialogCreator.CreateDialog("成功", "成功，是否上传成绩？", SuccessTrue, SuccessFalse);

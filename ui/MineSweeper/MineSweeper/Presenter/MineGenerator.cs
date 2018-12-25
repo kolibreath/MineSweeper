@@ -13,13 +13,10 @@ namespace MineSweeper.Presenter
         int Row = 9;
         int Column = 9;
 
-        public int OpenCount
-        { get
-            {
-                return GetOpenCount();
-            }
-            set { OpenCount = value; }
-        }
+        /// <summary>
+        /// 取消 直接使用GetOpenCount获取
+        /// </summary>
+       // public int OpenCount = 0;
         //表示有没有初始化成功
         public static bool _is_intialized = false;
         //如果field 内部是-1的话 就表示一个炸弹
@@ -101,18 +98,24 @@ namespace MineSweeper.Presenter
         /// 在OpenCount 中的getter 和 setter中调用
         /// </summary>
         /// <returns></returns>
-        private int GetOpenCount()
+        public  int GetOpenCount()
         {
+            int count = 0;
             for(int i = 0; i< Row; i++)
             {
                 for(int j = 0; j < Column; j++)
                 {
-                    if (Field[i, j] == -1)
-                        OpenCount++;
+                    if (Record[i, j] == OPEN)
+                        count++;
                 }
             }
 
-            return OpenCount;
+            return count;
+        }
+
+        public void SetOpen(int x,int y)
+        {
+            Record[x, y] = OPEN;
         }
         
         //生成field 的初始区域 使用dfs 
