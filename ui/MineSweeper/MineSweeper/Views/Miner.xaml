@@ -8,9 +8,14 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid  >
-        <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch">
-            <TextBlock x:Name ="timetext"  Text="计时器" TextWrapping="Wrap" VerticalAlignment="Center" Height="100" FontSize="50"  Margin="200,100,200,100"/>
+    <Grid  
+      >
+        <StackPanel 
+                    Orientation="Horizontal" 
+                    Grid.ColumnSpan="2" 
+                    Margin="0,10,10,10" 
+                    VerticalAlignment="Stretch">
+            <TextBlock x:Name ="Timetext"  Text="" TextWrapping="Wrap" VerticalAlignment="Center" Height="100" FontSize="50"  Margin="200,100,200,100"/>
             <Grid x:Name="grid" Height="1073" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="0,0,0,0" />
         </StackPanel>
     </Grid>

@@ -75,7 +75,7 @@ namespace MineSweeper.Views
             ButtonInit();
 
             // TimeCounter counter1 :记录使用了多长时间
-            counter1 = new TimerCounter(timetext);
+            counter1 = new TimerCounter(Timetext);
             counter1.StartCountDown();
 
             ColumnDefinition[] cdefs = new ColumnDefinition[Cnum];
@@ -179,8 +179,9 @@ namespace MineSweeper.Views
 
         private void GridInit()
         {
-            grid.Width = 900;
-            grid.Height = 900;
+            //初始长度不要太长
+            grid.Width = 600;
+            grid.Height = 600;
             grid.Margin = new Thickness(5, 5, 5, 5);
             grid.HorizontalAlignment = HorizontalAlignment.Center;
             grid.VerticalAlignment = VerticalAlignment.Center;
@@ -193,14 +194,16 @@ namespace MineSweeper.Views
             {
                 for (int j = 0; j < Rnum; j += 1)
                 {
-                    buttons[i, j] = new Button();
-                    buttons[i, j].Content = bstr;
-                    buttons[i, j].Margin = new Thickness(2, 2, 2, 2);
-                    buttons[i, j].HorizontalAlignment = HorizontalAlignment.Stretch;
-                    buttons[i, j].VerticalAlignment = VerticalAlignment.Stretch;
-                    buttons[i, j].Background = new SolidColorBrush(Windows.UI.Colors.Gray);
-                    buttons[i, j].BorderBrush = new SolidColorBrush(Windows.UI.Colors.Black);
-                    buttons[i, j].BorderThickness = new Thickness(1, 1, 1, 1);
+                    buttons[i, j] = new Button
+                    {
+                        Content = bstr,
+                        Margin = new Thickness(2, 2, 2, 2),
+                        HorizontalAlignment = HorizontalAlignment.Stretch,
+                        VerticalAlignment = VerticalAlignment.Stretch,
+                        Background = new SolidColorBrush(Windows.UI.Colors.Gray),
+                        BorderBrush = new SolidColorBrush(Windows.UI.Colors.Black),
+                        BorderThickness = new Thickness(1, 1, 1, 1)
+                    };
 
                     Grid.SetRow(buttons[i, j], i);
                     Grid.SetColumn(buttons[i, j], j);
@@ -220,8 +223,8 @@ namespace MineSweeper.Views
                 rdefs[i] = new RowDefinition();
                 grid.RowDefinitions.Add(rdefs[i]);
             }
-            Grid.SetColumn(timetext, 0);
-            Grid.SetRow(timetext, 0);
+            Grid.SetColumn(Timetext, 0);
+            Grid.SetRow(Timetext, 0);
         }
 
         private void Timetext_SelectionChanged(object sender, RoutedEventArgs e)
