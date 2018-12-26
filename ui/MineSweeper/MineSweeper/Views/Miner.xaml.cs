@@ -121,7 +121,7 @@ namespace MineSweeper.Views
             {
                 //todo 恢复正常颜色 
                 IsRightTapped[row, column] = false;
-                b.Background = new SolidColorBrush(Color.FromArgb(255, 228, 100, 48));
+                b.Background = new SolidColorBrush(Windows.UI.Colors.Gray);
             }
         }
 
