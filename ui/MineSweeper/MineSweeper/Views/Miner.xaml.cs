@@ -9,6 +9,8 @@ using MineSweeper.Presenter;
 using Windows.Foundation;
 using MineSweeper.Views;
 using System.Diagnostics;
+using Windows.UI.Xaml.Media.Imaging;
+using System.Threading;
 
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -37,11 +39,17 @@ namespace MineSweeper.Views
         TimerCounter counter1;
         IService Service = new IService();
 
+        bool [,] IsRightTapped;
+
         ColumnDefinition[] cdefs;
         RowDefinition[] rdefs ;
         Button[,] buttons;
         
         MineGenerator MG;
+
+        private int index = 0;
+
+        private Timer AvatarTimer;
 
         public Miner()
         {
@@ -56,6 +64,17 @@ namespace MineSweeper.Views
             Cnum = parameters.Column;
             Rnum = parameters.Row;
             Bombnum = parameters.Bombs;
+
+            IsRightTapped = new bool[Rnum, Cnum];
+
+            for (int i = 0; i < Cnum; i++)
+            {
+                for (int j = 0; j < Rnum; j++)
+                {
+                    IsRightTapped[i, j] = false;
+                }
+            }
+
             OpenButtonNum = parameters.OpenButtonNum;
             OpenButtonDepth = parameters.OpenButtonDepth;
             InitHardScore = parameters.HardScore;
@@ -64,6 +83,8 @@ namespace MineSweeper.Views
             rdefs = new RowDefinition[Rnum];
             buttons = new Button[Cnum, Rnum];
             // -1代表炸弹，数字代表无炸弹，数字个数为上下左右的炸弹数目;
+
+      
         }
 
         private void MainPage_Loaded(object sender, RoutedEventArgs e)
@@ -89,7 +110,19 @@ namespace MineSweeper.Views
             var row = Grid.GetRow(b);
             var column = Grid.GetColumn(b);
             await MediaPlayback.MinePanelClick();
-            b.Background = new SolidColorBrush(Color.FromArgb(255, 228, 163, 48));
+
+            if (!IsRightTapped[row, column])
+            {
+                //变成橙色
+                b.Background = new SolidColorBrush(Color.FromArgb(255, 228, 163, 48));
+                IsRightTapped[row, column] = true;
+            }
+            else
+            {
+                //todo 恢复正常颜色 
+                IsRightTapped[row, column] = false;
+                b.Background = new SolidColorBrush(Color.FromArgb(255, 228, 100, 48));
+            }
         }
 
         private async void Button_Click(object sender, RoutedEventArgs e)
@@ -100,23 +133,27 @@ namespace MineSweeper.Views
             
             TypedEventHandler<ContentDialog, ContentDialogButtonClickEventArgs> SuccessTrue = async delegate
             {
+                counter1.StopCountDown();
                 await Service.PostScore(UserAccountHelper.USER_ID, InitHardScore - counter1.Count);
                 Frame.Navigate(typeof(MainPage), null);
             };
             // 成功，不上传成绩
             TypedEventHandler<ContentDialog, ContentDialogButtonClickEventArgs> SuccessFalse = delegate
             {
-                Frame.Navigate(typeof(MainPage), null);
+                counter1.StopCountDown();
+;               Frame.Navigate(typeof(MainPage), null);
             };
             // 失败，上传成绩（设置为负数）
             TypedEventHandler<ContentDialog, ContentDialogButtonClickEventArgs> FailedTrue = async delegate
             {
+                counter1.StopCountDown();
                 await Service.PostScore(UserAccountHelper.USER_ID, InitHardScore - counter1.Count - InitHardScore);
                 Frame.Navigate(typeof(MainPage), null);
             };
             // 失败，不上传成绩
             TypedEventHandler<ContentDialog, ContentDialogButtonClickEventArgs> FailedFalse = delegate
             {
+                counter1.StopCountDown();
                 Frame.Navigate(typeof(MainPage), null);
             };
 
@@ -127,9 +164,27 @@ namespace MineSweeper.Views
             var column = Grid.GetColumn(b);
             var row = Grid.GetRow(b);
 
+            var eater = new EaterEgg(Cnum, Rnum, row, column);
+            if(eater.TriggerEaterEgg(MG.Field))
+            {
+                for(int i = 0;i< Cnum; i++)
+                {
+                    for (int j = 0; j < Rnum; j++)
+                    {
+                        if (MG.Field[i, j] == 1)
+                        {
+                            buttons[i, j].Background = new SolidColorBrush(Color.FromArgb(255, 255, 00, 00));
+                            buttons[i, j].Content = MG.Panel[i, j];
+                        }
+                    }
+                }
+                return;
+            }
+
             //  首次点击
             if (FirstClickFlag == 1 && MG.Field[row, column] != -1)
             {
+                AnimateAvatar();
                 MG.InitArea(OpenButtonDepth, 0, row, column, OpenButtonNum);
                 
                 for(int i = 0; i < Rnum; i++)
@@ -157,11 +212,17 @@ namespace MineSweeper.Views
                     b.Background = new SolidColorBrush(Color.FromArgb(255, 236, 103, 98));
                     await MediaPlayback.GameFailed();
                     DialogCreator.CreateDialog("失败", "失败，是否上传成绩?", FailedTrue, FailedFalse);
- 
+
+                    ImageBrush imageBrush = new ImageBrush
+                    {
+                        ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/" + "failed.jpg", UriKind.Absolute))
+                    };
+                    Player_status.Fill = imageBrush;
                     //Frame.Navigate(typeof(MainPage), null);
                 }
                 else
                 {
+                    AnimateAvatar();
                     b.Background = new SolidColorBrush(Color.FromArgb(255, 77, 153, 79));
                     b.Content = MG.Panel[row, column];
                     MG.SetOpen(row, column);
@@ -232,6 +293,49 @@ namespace MineSweeper.Views
         {
             throw new NotImplementedException();
         }
+
+        public async void Invoke(Action action, Windows.UI.Core.CoreDispatcherPriority Priority = Windows.UI.Core.CoreDispatcherPriority.Normal)
+        {
+            await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Priority, () => { action(); });
+        }
+
+      
+        private void AnimateAvatar()
+        {
+           AvatarTimer = new System.Threading.Timer(TimerAction, null, TimeSpan.FromSeconds(0), TimeSpan.FromMilliseconds(100));
+            
+        }
+
+
+        private void TimerAction(object obj)
+        {
+            this.Invoke(() => {
+                
+                string[] pics = { "phase1.jpg", "phase2.jpg", "phase3.jpg","phase1.jpg" };
+
+                index++;
+                ImageBrush imageBrush = new ImageBrush
+                {
+                    ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/" + pics[index], UriKind.Absolute))
+                };
+                Player_status.Fill = imageBrush;
+
+                if(index == 3)
+                {
+                    index = 0;
+                    imageBrush = new ImageBrush
+                    {
+                        ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/" + pics[index], UriKind.Absolute))
+                    };
+                    Player_status.Fill = imageBrush;
+                    AvatarTimer.Dispose();
+                 
+                }
+                    
+            }
+             );
+        }
+
     }
 }
 

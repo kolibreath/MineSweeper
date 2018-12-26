@@ -58,7 +58,14 @@ namespace MineSweeper
 
             UserLogin userlogin = new UserLogin();
          //   if(await service.GetStatus(userlogin))
-
+         if(await service.GetStatus(userlogin))
+            {
+                Image_hint.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                Image_hint.Visibility = Visibility.Collapsed;
+            }
         }
 
 
@@ -150,8 +157,8 @@ namespace MineSweeper
         {
             await MediaPlayback.MinePanelClick();
             var parameters = new MinerPageParams();
-            parameters.Row = 8;
-            parameters.Column = 8;
+            parameters.Row = 9;
+            parameters.Column = 9;
             parameters.Bombs = 10;
             parameters.OpenButtonNum = 20;
             parameters.OpenButtonDepth = 3;
