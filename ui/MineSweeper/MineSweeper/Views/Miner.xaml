@@ -18,13 +18,13 @@
                 
             <Ellipse 
                 Name="Player_status"
-                Width="200" Height="200"  Margin="200,100,200,100" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                Width="200" Height="200"  Margin="130,500,200,100" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             </Ellipse>
                 
             <TextBlock 
-                RelativePanel.AlignBottomWith="Player_status"
                 x:Name ="Timetext"  Text="" TextWrapping="Wrap" 
                        VerticalAlignment="Center" Height="100" FontSize="50"  Margin="200,100,200,100"/>
+               
             <Grid
                 RelativePanel.RightOf="Timetext"
                 x:Name="grid" Height="1073" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="0,0,0,0" />
