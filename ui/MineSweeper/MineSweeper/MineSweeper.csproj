@@ -163,6 +163,7 @@
   <ItemGroup>
     <Content Include="Assets\begin.mp3" />
     <Content Include="Assets\click-1.mp3" />
+    <Content Include="Assets\cross.jpg" />
     <Content Include="Assets\easy.jpg" />
     <Content Include="Assets\fail-1.mp3" />
     <Content Include="Assets\fail-2.mp3" />
@@ -180,6 +181,7 @@
     <Content Include="Assets\phase1.jpg" />
     <Content Include="Assets\phase2.jpg" />
     <Content Include="Assets\phase3.jpg" />
+    <Content Include="Assets\play_status.gif" />
     <Content Include="Assets\SplashScreen.scale-100.png" />
     <Content Include="Assets\SplashScreen.scale-125.png" />
     <Content Include="Assets\SplashScreen.scale-150.png" />
